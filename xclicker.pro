@@ -2,4 +2,5 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     app \
-    gui
+    gui \
+    tests
