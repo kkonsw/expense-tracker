@@ -10,6 +10,7 @@ SOURCES += \
     user.cpp
 
 HEADERS += \
+    database.h \
     dbmanager.h \
     user.h
 

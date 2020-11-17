@@ -1,8 +1,13 @@
 #include "dbmanager.h"
 
 
-DBManager::DBManager()
+DBManager::DBManager():
+    db(std::make_unique<Database>(initStorage()))
 {
-    Storage storage = initStorage();
-    storage.sync_schema();
+    db->sync_schema();
+}
+
+Database *DBManager::GetDatabase()
+{
+    return db.get();
 }
