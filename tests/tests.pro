@@ -1,7 +1,7 @@
 TEMPLATE = app
 QT += gui
 
-CONFIG += c++11
+CONFIG += c++14
 
 isEmpty(CATCH_INCLUDE_DIR): CATCH_INCLUDE_DIR=$$(CATCH_INCLUDE_DIR)
 
@@ -16,3 +16,14 @@ isEmpty(CATCH_INCLUDE_DIR): {
 SOURCES += \
     main.cpp \
     test_dbmanager.cpp
+
+# sqlite_orm
+INCLUDEPATH += ../3rd-party/sqlite_orm/
+
+# app
+unix:!macx: LIBS += -L$$OUT_PWD/../app/ -lapp
+
+INCLUDEPATH += $$PWD/../app
+DEPENDPATH += $$PWD/../app
+
+unix:!macx: PRE_TARGETDEPS += $$OUT_PWD/../app/libapp.a

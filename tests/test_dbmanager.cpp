@@ -1,6 +1,7 @@
 #include <catch2/catch.hpp>
+#include "dbmanager.h"
 
-TEST_CASE("My first test with Catch2", "[fancy]")
+TEST_CASE("Create DB Manager", "[DBManager]")
 {
-    REQUIRE(0 == 0);
+    REQUIRE_NOTHROW(DBManager());
 }
