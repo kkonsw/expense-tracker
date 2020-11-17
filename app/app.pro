@@ -6,10 +6,14 @@ CONFIG += staticlib
 CONFIG += c++14
 
 SOURCES += \
-    dbmanager.cpp
+    dbmanager.cpp \
+    user.cpp
 
 HEADERS += \
-    dbmanager.h
+    dbmanager.h \
+    user.h
+
+LIBS += -lsqlite3
 
 # default rules for deployment
 unix {

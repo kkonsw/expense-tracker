@@ -17,6 +17,8 @@ SOURCES += \
     main.cpp \
     test_dbmanager.cpp
 
+LIBS += -lsqlite3
+
 # sqlite_orm
 INCLUDEPATH += ../3rd-party/sqlite_orm/
 
