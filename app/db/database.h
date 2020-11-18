@@ -2,7 +2,13 @@
 #define DATABASE_H
 
 #include "sqlite_orm.h"
-#include "user.h"
+
+struct User
+{
+    int id;
+    std::string firstName;
+    std::string lastName;
+};
 
 using namespace sqlite_orm;
 

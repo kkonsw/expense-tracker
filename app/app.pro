@@ -6,13 +6,13 @@ CONFIG += staticlib
 CONFIG += c++14
 
 SOURCES += \
-    dbmanager.cpp \
-    user.cpp
+    db/dbmanager.cpp \
+    db/user.cpp
 
 HEADERS += \
-    database.h \
-    dbmanager.h \
-    user.h
+    db/database.h \
+    db/dbmanager.h \
+    db/user.h
 
 LIBS += -lsqlite3
 
@@ -24,3 +24,4 @@ unix {
 
 # sqlite_orm
 INCLUDEPATH += ../3rd-party/sqlite_orm/
+INCLUDEPATH += db/
