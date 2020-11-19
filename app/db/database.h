@@ -6,22 +6,22 @@
 struct User
 {
     int id;
-    std::string firstName;
-    std::string lastName;
+    std::string first_name;
+    std::string last_name;
 };
 
 using namespace sqlite_orm;
 
-inline auto initStorage(const std::string &path = "db.sqlite")
+inline auto init_storage(const std::string &path = "db.sqlite")
 {
     return make_storage(path,
                     make_table("users",
                            make_column("id", &User::id, autoincrement(),
                                        primary_key()),
-                           make_column("first_name", &User::firstName),
-                           make_column("last_name", &User::lastName)));
+                           make_column("first_name", &User::first_name),
+                           make_column("last_name", &User::last_name)));
 }
 
-using Database = decltype(initStorage());
+using Database = decltype(init_storage());
 
 #endif // DATABASE_H

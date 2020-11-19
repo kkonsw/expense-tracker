@@ -8,7 +8,7 @@ class DBManager
 {
 public:
     DBManager();
-    Database *GetDatabase();
+    Database *get_database();
 
 private:
 

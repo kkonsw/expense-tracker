@@ -6,13 +6,13 @@ CONFIG += staticlib
 CONFIG += c++14
 
 SOURCES += \
-    db/dbmanager.cpp \
+    db/db_manager.cpp \
     db/table.cpp \
     db/user_table.cpp
 
 HEADERS += \
     db/database.h \
-    db/dbmanager.h \
+    db/db_manager.h \
     db/table.h \
     db/user_table.h
 
