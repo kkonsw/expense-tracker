@@ -15,7 +15,8 @@ isEmpty(CATCH_INCLUDE_DIR): {
 
 SOURCES += \
     main.cpp \
-    test_dbmanager.cpp
+    test_dbmanager.cpp \
+    test_usertable.cpp
 
 LIBS += -lsqlite3
 

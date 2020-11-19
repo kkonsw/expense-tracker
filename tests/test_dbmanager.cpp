@@ -20,7 +20,7 @@ TEST_CASE("Get Table Names From Database", "[DBManager]")
     Database *db = DBManager.GetDatabase();
     auto tables = db->table_names();
     INFO("Number of tables - " << tables.size());
-    INFO("Table Names - " << tables[0] << ", " << tables[1])
+    INFO("Table names - " << tables[0] << ", " << tables[1])
     REQUIRE(tables.size() == 2);
     REQUIRE(tables[0] == "users");
     REQUIRE(tables[1] == "sqlite_sequence");
