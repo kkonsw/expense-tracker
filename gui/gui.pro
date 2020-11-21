@@ -5,10 +5,12 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    main_window.cpp \
+    transactions_window.cpp
 
 HEADERS += \
-    mainwindow.h
+    main_window.h \
+    transactions_window.h
 
 # default rules for deployment
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -22,3 +24,6 @@ INCLUDEPATH += $$PWD/../app
 DEPENDPATH += $$PWD/../app
 
 unix:!macx: PRE_TARGETDEPS += $$OUT_PWD/../app/libapp.a
+
+FORMS += \
+    transactions_window.ui
