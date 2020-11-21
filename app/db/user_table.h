@@ -24,7 +24,7 @@ public:
     void remove_user(int id);
 
     /** Returns user with requested id from users table.
-     *  Returns nullptr is user with requested id is not found.
+     *  Returns nullptr if user with requested id is not found.
      */
     std::unique_ptr<User> get_user(int id) const;
 
