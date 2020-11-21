@@ -18,9 +18,8 @@ TEST_CASE("Get table names from database", "[DBManager]")
 {
     DBManager db_manager;
     Database *db = db_manager.get_database();
+
     auto tables = db->table_names();
-    INFO("Number of tables - " << tables.size());
-    INFO("Table names - " << tables[0] << ", " << tables[1])
     REQUIRE(tables.size() == 2);
     REQUIRE(tables[0] == "users");
     REQUIRE(tables[1] == "sqlite_sequence");
