@@ -7,7 +7,6 @@ CONFIG += c++14
 
 SOURCES += \
     db/db_manager.cpp \
-    db/table.cpp \
     db/user_table.cpp
 
 HEADERS += \
