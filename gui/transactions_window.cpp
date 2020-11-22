@@ -6,7 +6,10 @@ TransactionsWindow::TransactionsWindow(QWidget *parent) :
     ui(new Ui::TransactionsWindow)
 {
     ui->setupUi(this);
+
     this->setFixedSize(400, 200);
+    ui->tableView->setModel(&model);
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 }
 
 TransactionsWindow::~TransactionsWindow()

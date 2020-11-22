@@ -2,6 +2,7 @@
 #define TRANSACTIONS_WINDOW_H
 
 #include <QWidget>
+#include "transaction_model.h"
 
 namespace Ui {
 class TransactionsWindow;
@@ -17,6 +18,7 @@ public:
 
 private:
     Ui::TransactionsWindow *ui;
+    TransactionModel model;
 };
 
 #endif // TRANSACTIONS_WINDOW_H

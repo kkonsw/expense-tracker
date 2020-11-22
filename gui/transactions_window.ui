@@ -24,14 +24,14 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout" stretch="3,2,2">
+    <layout class="QVBoxLayout" name="verticalLayout" stretch="1,3,1">
      <item>
       <widget class="QLabel" name="label_welcome">
        <property name="styleSheet">
         <string notr="true">color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
-        <string>Welcome!</string>
+        <string>Transactions</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -39,29 +39,7 @@
       </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QLineEdit" name="lineEdit_1">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(168, 168, 168);</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="lineEdit_2">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(168, 168, 168);</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="lineEdit_3">
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(168, 168, 168);</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <widget class="QTableView" name="tableView"/>
      </item>
      <item>
       <spacer name="verticalSpacer">
