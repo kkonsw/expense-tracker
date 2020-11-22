@@ -1,4 +1,3 @@
-#include "main_window.h"
 #include "transactions_window.h"
 
 #include <QApplication>

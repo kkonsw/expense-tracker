@@ -3,7 +3,6 @@
 
 #include "database.h"
 #include "table.h"
-#include <memory>
 
 
 class UserTable : public Table<User>

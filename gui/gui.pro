@@ -5,11 +5,9 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    main_window.cpp \
     transactions_window.cpp
 
 HEADERS += \
-    main_window.h \
     transactions_window.h
 
 # default rules for deployment
