@@ -7,12 +7,14 @@ CONFIG += c++14
 
 SOURCES += \
     db/db_manager.cpp \
+    db/transaction_table.cpp \
     db/user_table.cpp
 
 HEADERS += \
     db/database.h \
     db/db_manager.h \
     db/table.h \
+    db/transaction_table.h \
     db/user_table.h
 
 LIBS += -lsqlite3
