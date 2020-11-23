@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "transaction_model.h"
+#include "db/db_manager.h"
 
 namespace Ui {
 class TransactionsWindow;
@@ -18,6 +19,7 @@ public:
 
 private:
     Ui::TransactionsWindow *ui;
+    DBManager db_manager;
     TransactionModel model;
 };
 

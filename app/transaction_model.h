@@ -2,13 +2,16 @@
 #define TRANSACTIONMODEL_H
 
 #include <QAbstractTableModel>
+#include "db/transaction_table.h"
+#include "db/database.h"
 
 class TransactionModel : public QAbstractTableModel
 {
     Q_OBJECT
 
 public:
-    explicit TransactionModel(QObject *parent = nullptr);
+    explicit TransactionModel(Database *db = nullptr,
+                              QObject *parent = nullptr);
 
     // Header
     QVariant headerData(int section, Qt::Orientation orientation,
@@ -42,7 +45,11 @@ public:
     bool removeColumns(int column, int count,
                        const QModelIndex &parent = QModelIndex()) override;
 
+    // Create Data For Testing
+    void CreateTestingData();
+
 private:
+    TransactionTable transactions;
 };
 
 #endif // TRANSACTIONMODEL_H

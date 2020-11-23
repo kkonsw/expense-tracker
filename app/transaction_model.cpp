@@ -1,7 +1,11 @@
 #include "transaction_model.h"
+#include "database.h"
 
-TransactionModel::TransactionModel(QObject *parent)
-    : QAbstractTableModel(parent)
+#include <QDebug>
+
+TransactionModel::TransactionModel(Database *db, QObject *parent)
+    : QAbstractTableModel(parent),
+      transactions(db)
 {
 
 }
@@ -106,4 +110,17 @@ bool TransactionModel::removeColumns(int column, int count,
     beginRemoveColumns(parent, column, column + count - 1);
     // FIXME: Implement me!
     endRemoveColumns();
+}
+
+void TransactionModel::CreateTestingData()
+{
+    qDebug() << "Removing all transactions from database";
+    transactions.remove_all();
+
+    Transaction transaction1({-1, 1, 664416000, 1.11, "test1"});
+    Transaction transaction2({-1, 1, 664416000, 1.12, "test2"});
+    Transaction transaction3({-1, 1, 664416000, 1.13, "test3"});
+    transactions.add(transaction1);
+    transactions.add(transaction2);
+    transactions.add(transaction3);
 }

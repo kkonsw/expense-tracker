@@ -1,7 +1,7 @@
 QT += core gui
 QT += widgets
 
-CONFIG += c++11
+CONFIG += c++14
 
 SOURCES += \
     main.cpp \
@@ -25,3 +25,7 @@ unix:!macx: PRE_TARGETDEPS += $$OUT_PWD/../app/libapp.a
 
 FORMS += \
     transactions_window.ui
+
+# sqlite_orm
+INCLUDEPATH += ../3rd-party/sqlite_orm/
+LIBS += -lsqlite3
