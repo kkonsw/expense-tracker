@@ -1,16 +1,16 @@
-#include "transaction_model.h"
+#include "old_model.h"
 #include "database.h"
 
 #include <QDebug>
 
-TransactionModel::TransactionModel(Database *db, QObject *parent)
+OldModel::OldModel(Database *db, QObject *parent)
     : QAbstractTableModel(parent),
       transactions(db)
 {
 
 }
 
-QVariant TransactionModel::headerData(int section, Qt::Orientation orientation,
+QVariant OldModel::headerData(int section, Qt::Orientation orientation,
                                       int role) const
 {
     if (role == Qt::DisplayRole && orientation == Qt::Horizontal) {
@@ -26,7 +26,7 @@ QVariant TransactionModel::headerData(int section, Qt::Orientation orientation,
     return QVariant();
 }
 
-bool TransactionModel::setHeaderData(int section, Qt::Orientation orientation,
+bool OldModel::setHeaderData(int section, Qt::Orientation orientation,
                                      const QVariant &value, int role)
 {
     if (value != headerData(section, orientation, role)) {
@@ -38,17 +38,17 @@ bool TransactionModel::setHeaderData(int section, Qt::Orientation orientation,
 }
 
 
-int TransactionModel::rowCount(const QModelIndex &parent) const
+int OldModel::rowCount(const QModelIndex &parent) const
 {
     return transactions.size();
 }
 
-int TransactionModel::columnCount(const QModelIndex &parent) const
+int OldModel::columnCount(const QModelIndex &parent) const
 {
     return 3;
 }
 
-QVariant TransactionModel::data(const QModelIndex &index, int role) const
+QVariant OldModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid())
         return QVariant();
@@ -61,7 +61,7 @@ QVariant TransactionModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-bool TransactionModel::setData(const QModelIndex &index, const QVariant &value,
+bool OldModel::setData(const QModelIndex &index, const QVariant &value,
                                int role)
 {
     if (data(index, role) != value) {
@@ -72,7 +72,7 @@ bool TransactionModel::setData(const QModelIndex &index, const QVariant &value,
     return false;
 }
 
-Qt::ItemFlags TransactionModel::flags(const QModelIndex &index) const
+Qt::ItemFlags OldModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())
         return Qt::NoItemFlags;
@@ -80,14 +80,14 @@ Qt::ItemFlags TransactionModel::flags(const QModelIndex &index) const
     return Qt::ItemIsEditable; // FIXME: Implement me!
 }
 
-bool TransactionModel::insertRows(int row, int count, const QModelIndex &parent)
+bool OldModel::insertRows(int row, int count, const QModelIndex &parent)
 {
     beginInsertRows(parent, row, row + count - 1);
     // FIXME: Implement me!
     endInsertRows();
 }
 
-bool TransactionModel::insertColumns(int column, int count,
+bool OldModel::insertColumns(int column, int count,
                                      const QModelIndex &parent)
 {
     beginInsertColumns(parent, column, column + count - 1);
@@ -95,14 +95,14 @@ bool TransactionModel::insertColumns(int column, int count,
     endInsertColumns();
 }
 
-bool TransactionModel::removeRows(int row, int count, const QModelIndex &parent)
+bool OldModel::removeRows(int row, int count, const QModelIndex &parent)
 {
     beginRemoveRows(parent, row, row + count - 1);
     // FIXME: Implement me!
     endRemoveRows();
 }
 
-bool TransactionModel::removeColumns(int column, int count,
+bool OldModel::removeColumns(int column, int count,
                                      const QModelIndex &parent)
 {
     beginRemoveColumns(parent, column, column + count - 1);
@@ -110,7 +110,7 @@ bool TransactionModel::removeColumns(int column, int count,
     endRemoveColumns();
 }
 
-void TransactionModel::createTestingData()
+void OldModel::createTestingData()
 {
     qDebug() << "Removing all transactions from database";
     transactions.removeAll();

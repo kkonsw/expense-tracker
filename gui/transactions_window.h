@@ -2,7 +2,8 @@
 #define TRANSACTIONS_WINDOW_H
 
 #include <QWidget>
-#include "transaction_model.h"
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlRelationalTableModel>
 #include "db/db_manager.h"
 
 namespace Ui {
@@ -20,7 +21,11 @@ public:
 private:
     Ui::TransactionsWindow *ui;
     DBManager db_manager;
-    TransactionModel model;
+    QSqlDatabase db;
+    std::unique_ptr<QSqlRelationalTableModel> model;
+
+    void connectToDatabase();
+    void createTestData();
 };
 
 #endif // TRANSACTIONS_WINDOW_H

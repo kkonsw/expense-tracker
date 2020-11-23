@@ -5,12 +5,12 @@
 #include "db/transaction_table.h"
 #include "db/database.h"
 
-class TransactionModel : public QAbstractTableModel
+class OldModel : public QAbstractTableModel
 {
     Q_OBJECT
 
 public:
-    explicit TransactionModel(Database *db = nullptr,
+    explicit OldModel(Database *db = nullptr,
                               QObject *parent = nullptr);
 
     // Header
