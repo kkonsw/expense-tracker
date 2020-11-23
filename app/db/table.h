@@ -29,12 +29,17 @@ public:
     /** Removes all rows from table.
      *
      */
-    virtual void remove_all();
+    virtual void removeAll();
 
     /** Returns all rows from table.
      *
      */
-    virtual std::vector<T> get_all() const;
+    virtual std::vector<T> getAll() const;
+
+    /** Returns table size.
+     *
+     */
+    virtual std::size_t size() const;
 
 protected:
     Database* db;
@@ -76,15 +81,21 @@ std::unique_ptr<T> Table<T>::get(int id) const
 }
 
 template <typename T>
-void Table<T>::remove_all()
+void Table<T>::removeAll()
 {
     db->remove_all<T>();
 }
 
 template <typename T>
-std::vector<T> Table<T>::get_all() const
+std::vector<T> Table<T>::getAll() const
 {
     return db->get_all<T>();
+}
+
+template<typename T>
+std::size_t Table<T>::size() const
+{
+    return getAll().size();
 }
 
 #endif // TABLE_H

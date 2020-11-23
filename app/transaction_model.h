@@ -46,7 +46,7 @@ public:
                        const QModelIndex &parent = QModelIndex()) override;
 
     // Create Data For Testing
-    void CreateTestingData();
+    void createTestingData();
 
 private:
     TransactionTable transactions;

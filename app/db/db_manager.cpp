@@ -7,7 +7,7 @@ DBManager::DBManager():
     db->sync_schema();
 }
 
-Database *DBManager::get_database()
+Database *DBManager::getDatabase()
 {
     return db.get();
 }

@@ -11,7 +11,7 @@ TEST_CASE("Create users table without database throws", "[User Table]")
 TEST_CASE("Create users table with valid database", "[User Table]")
 {
     DBManager db_manager;
-    Database* db = db_manager.get_database();
+    Database* db = db_manager.getDatabase();
     REQUIRE_NOTHROW(UserTable(db));
 }
 
@@ -20,11 +20,11 @@ class UserTableFixture
 public:
     UserTableFixture():
         db_manager(DBManager()),
-        db(db_manager.get_database()),
+        db(db_manager.getDatabase()),
         users(std::make_unique<UserTable>(UserTable(db))),
         user({-1, "John", "Doe"})
     {
-        users->remove_all();
+        users->removeAll();
     }
 
 protected:
@@ -37,11 +37,11 @@ protected:
 TEST_CASE_METHOD(UserTableFixture, "Get all users from users table",
                  "[User Table]")
 {
-    auto all_users = users->get_all();
+    auto all_users = users->getAll();
     REQUIRE(all_users.size() == 0);
 
     auto id = users->add(user);
-    all_users = users->get_all();
+    all_users = users->getAll();
     REQUIRE(id >= 0);
     REQUIRE(all_users.size() == 1);
 }
@@ -49,8 +49,8 @@ TEST_CASE_METHOD(UserTableFixture, "Get all users from users table",
 TEST_CASE_METHOD(UserTableFixture, "Remove all users from users table",
                  "[User Table]")
 {
-    users->remove_all();
-    auto all_users = users->get_all();
+    users->removeAll();
+    auto all_users = users->getAll();
     REQUIRE(all_users.size() == 0);
 }
 
@@ -58,19 +58,19 @@ TEST_CASE_METHOD(UserTableFixture, "Add and Remove user from users table",
                  "[User Table]")
 {
     auto id = users->add(user);
-    auto all_users = users->get_all();
+    auto all_users = users->getAll();
     REQUIRE(id >= 0);
     REQUIRE(all_users.size() == 1);
 
     users->remove(id);
-    all_users = users->get_all();
+    all_users = users->getAll();
     REQUIRE(all_users.size() == 0);
 }
 
 TEST_CASE_METHOD(UserTableFixture, "Remove non-existent user from users table",
                  "[User Table]")
 {
-    auto all_users = users->get_all();
+    auto all_users = users->getAll();
     REQUIRE(all_users.size() == 0);
 
     int id = 1;
@@ -80,7 +80,7 @@ TEST_CASE_METHOD(UserTableFixture, "Remove non-existent user from users table",
 TEST_CASE_METHOD(UserTableFixture,"Get non-existent user returns nullptr",
                  "[User Table]")
 {
-    auto all_users = users->get_all();
+    auto all_users = users->getAll();
     REQUIRE(all_users.size() == 0);
 
     int id = 1;

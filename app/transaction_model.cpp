@@ -40,14 +40,12 @@ bool TransactionModel::setHeaderData(int section, Qt::Orientation orientation,
 
 int TransactionModel::rowCount(const QModelIndex &parent) const
 {
-    if (parent.isValid())
-        return 2;
+    return transactions.size();
 }
 
 int TransactionModel::columnCount(const QModelIndex &parent) const
 {
-    if (parent.isValid())
-        return 3;
+    return 3;
 }
 
 QVariant TransactionModel::data(const QModelIndex &index, int role) const
@@ -112,15 +110,15 @@ bool TransactionModel::removeColumns(int column, int count,
     endRemoveColumns();
 }
 
-void TransactionModel::CreateTestingData()
+void TransactionModel::createTestingData()
 {
     qDebug() << "Removing all transactions from database";
-    transactions.remove_all();
+    transactions.removeAll();
 
+    qDebug() << "Creating transactions";
     Transaction transaction1({-1, 1, 664416000, 1.11, "test1"});
-    Transaction transaction2({-1, 1, 664416000, 1.12, "test2"});
-    Transaction transaction3({-1, 1, 664416000, 1.13, "test3"});
+    Transaction transaction2({-1, 2, 664416000, 1.12, "test2"});
+    Transaction transaction3({-1, 3, 664416000, 1.13, "test3"});
     transactions.add(transaction1);
     transactions.add(transaction2);
-    transactions.add(transaction3);
 }

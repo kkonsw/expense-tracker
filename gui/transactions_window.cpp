@@ -5,13 +5,13 @@ TransactionsWindow::TransactionsWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::TransactionsWindow),
     db_manager(DBManager()),
-    model(db_manager.get_database())
+    model(db_manager.getDatabase())
 {
     ui->setupUi(this);
 
     this->setFixedSize(400, 200);
 
-    model.CreateTestingData();
+    model.createTestingData();
     ui->tableView->setModel(&model);
     ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 }
