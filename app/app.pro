@@ -10,7 +10,6 @@ SOURCES += \
     db/db_manager.cpp \
     db/transaction_table.cpp \
     db/user_table.cpp \
-    old_model.cpp \
     transactions_model.cpp
 
 HEADERS += \
@@ -19,7 +18,6 @@ HEADERS += \
     db/table.h \
     db/transaction_table.h \
     db/user_table.h \
-    old_model.h \
     transactions_model.h
 
 LIBS += -lsqlite3
