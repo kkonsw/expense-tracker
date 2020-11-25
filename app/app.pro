@@ -1,5 +1,5 @@
 QT -= gui
-QT += sql
+QT += sql core
 
 TEMPLATE = lib
 CONFIG += staticlib
@@ -10,7 +10,8 @@ SOURCES += \
     db/db_manager.cpp \
     db/transaction_table.cpp \
     db/user_table.cpp \
-    old_model.cpp
+    old_model.cpp \
+    transactions_model.cpp
 
 HEADERS += \
     db/database.h \
@@ -18,7 +19,8 @@ HEADERS += \
     db/table.h \
     db/transaction_table.h \
     db/user_table.h \
-    old_model.h
+    old_model.h \
+    transactions_model.h
 
 LIBS += -lsqlite3
 

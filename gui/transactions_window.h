@@ -3,7 +3,8 @@
 
 #include <QWidget>
 #include <QtSql/QSqlDatabase>
-#include <QtSql/QSqlRelationalTableModel>
+
+#include "transactions_model.h"
 
 namespace Ui {
 class TransactionsWindow;
@@ -20,9 +21,7 @@ public:
 
 private:
     Ui::TransactionsWindow *ui;
-    std::unique_ptr<QSqlRelationalTableModel> model;
-
-    void createTestData();
+    std::unique_ptr<TransactionsModel> model;
 };
 
 #endif // TRANSACTIONS_WINDOW_H
