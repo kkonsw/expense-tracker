@@ -1,4 +1,5 @@
 #include "transactions_window.h"
+#include "users_model.h"
 
 #include <QApplication>
 #include <QSqlDatabase>
@@ -16,6 +17,7 @@ int main(int argc, char *argv[])
 
     QSqlDatabase db;
     connectToDatabase(db);
+    UsersModel usersModel(&db);
 
     TransactionsWindow w(nullptr, &db);
     w.show();
