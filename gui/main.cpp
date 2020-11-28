@@ -1,4 +1,5 @@
 #include "transactions_window.h"
+#include "newtransaction_dialog.h"
 #include "db/db_manager.h"
 
 #include <QApplication>
@@ -6,11 +7,12 @@
 #include <QDateTime>
 
 
-void connectToDatabase(QSqlDatabase &db)
+QSqlDatabase connectToDatabase()
 {
-    db = QSqlDatabase::addDatabase("QSQLITE");
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("db.sqlite");
     db.open();
+    return db;
 }
 
 void CreateTestData(Database *db)
@@ -19,7 +21,7 @@ void CreateTestData(Database *db)
     db->remove_all<Transaction>();
     db->remove_all<User>();
 
-    User user({-1, "John", "Doe"});
+    User user({-1, "John Doe"});
     int seconds = QDateTime::currentSecsSinceEpoch();
     Transaction transaction({-1, nullptr, seconds, 1.11, "Testing"});
 
@@ -39,12 +41,8 @@ int main(int argc, char *argv[])
     DBManager db_manager;
     CreateTestData(db_manager.getDatabase());
 
-    // Qt Sql connection
-    QSqlDatabase db;
-    connectToDatabase(db);
-
-    TransactionsWindow w(nullptr, &db);
-    w.show();
+    NewTransactionDialog dialog(db_manager.getDatabase());
+    dialog.show();
 
     return a.exec();
 }

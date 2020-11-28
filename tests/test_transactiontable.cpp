@@ -13,13 +13,14 @@ public:
         db(db_manager.getDatabase()),
         transactions(std::make_unique<TransactionTable>(TransactionTable(db))),
         transaction({-1, nullptr, 664416000, 1.11, "test"}),
-        user({-1, "John", "Doe"})
+        user({-1, "John Doe"})
     {
         // clear database
         db->remove_all<Transaction>();
         db->remove_all<User>();
-        user_id = db->insert(user);
+
         // foreign key
+        user_id = db->insert(user);
         transaction.user_id = std::make_unique<int>(user_id);
     }
 

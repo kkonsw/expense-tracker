@@ -22,7 +22,7 @@ public:
         db_manager(DBManager()),
         db(db_manager.getDatabase()),
         users(std::make_unique<UserTable>(UserTable(db))),
-        user({-1, "John", "Doe"})
+        user({-1, "John Doe"})
     {
         // clear database
         db->remove_all<Transaction>();
@@ -95,7 +95,6 @@ TEST_CASE_METHOD(UserTableFixture, "Get existing user", "[User Table]")
     auto user_ptr = users->get(id);
     REQUIRE(user_ptr != nullptr);
     REQUIRE(user_ptr->id == id);
-    REQUIRE(user_ptr->first_name == "John");
-    REQUIRE(user_ptr->last_name == "Doe");
+    REQUIRE(user_ptr->name == "John Doe");
 }
 

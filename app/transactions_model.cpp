@@ -5,11 +5,11 @@
 #include <QDebug>
 
 
-TransactionsModel::TransactionsModel(QSqlDatabase *db):
-    QSqlRelationalTableModel(nullptr, *db)
+TransactionsModel::TransactionsModel(QSqlDatabase db):
+    QSqlRelationalTableModel(nullptr, db)
 {
     setTable("transactions");
-    setRelation(1, QSqlRelation("users", "id", "first_name"));
+    setRelation(1, QSqlRelation("users", "id", "name"));
     select();
 }
 

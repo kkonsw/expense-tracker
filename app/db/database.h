@@ -6,8 +6,7 @@
 struct User
 {
     int id;
-    std::string first_name;
-    std::string last_name;
+    std::string name;
 };
 
 struct Transaction
@@ -27,8 +26,7 @@ inline auto init_storage(const std::string &path = "db.sqlite")
                         make_table("users",
                                    make_column("id", &User::id, autoincrement(),
                                                primary_key()),
-                                   make_column("first_name", &User::first_name),
-                                   make_column("last_name", &User::last_name)),
+                                   make_column("name", &User::name)),
                         make_table("transactions",
                                    make_column("id", &Transaction::id,
                                                autoincrement(), primary_key()),

@@ -7,7 +7,7 @@
 class TransactionsModel : public QSqlRelationalTableModel
 {
 public:
-    TransactionsModel(QSqlDatabase *db);
+    TransactionsModel(QSqlDatabase db);
     ~TransactionsModel();
     QVariant data(const QModelIndex &index,
                   int role = Qt::DisplayRole) const override;

@@ -1,7 +1,7 @@
 #include "transactions_window.h"
 #include "ui_transactions_window.h"
 
-TransactionsWindow::TransactionsWindow(QWidget *parent, QSqlDatabase *db) :
+TransactionsWindow::TransactionsWindow(QSqlDatabase db, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::TransactionsWindow),
     model(new TransactionsModel(db))
