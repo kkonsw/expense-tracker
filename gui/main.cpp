@@ -1,5 +1,4 @@
 #include "transactions_window.h"
-#include "users_model.h"
 #include "db/db_manager.h"
 
 #include <QApplication>
@@ -22,10 +21,11 @@ void CreateTestData(Database *db)
 
     User user({-1, "John", "Doe"});
     int seconds = QDateTime::currentSecsSinceEpoch();
-    Transaction transaction({-1, nullptr, seconds, 1.11, "test"});
+    Transaction transaction({-1, nullptr, seconds, 1.11, "Testing"});
 
     int user_id = db->insert(user);
     transaction.user_id = std::make_unique<int>(user_id);
+    db->insert(transaction);
     db->insert(transaction);
     db->insert(transaction);
     db->insert(transaction);
