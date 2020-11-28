@@ -12,9 +12,15 @@ public:
         db_manager(DBManager()),
         db(db_manager.getDatabase()),
         transactions(std::make_unique<TransactionTable>(TransactionTable(db))),
-        transaction({-1, std::make_unique<int>(1), 664416000, 1.11, "test"})
+        transaction({-1, nullptr, 664416000, 1.11, "test"}),
+        user({-1, "John", "Doe"})
     {
-        transactions->removeAll();
+        // clear database
+        db->remove_all<Transaction>();
+        db->remove_all<User>();
+        user_id = db->insert(user);
+        // foreign key
+        transaction.user_id = std::make_unique<int>(user_id);
     }
 
 protected:
@@ -22,16 +28,18 @@ protected:
     Database* db;
     std::unique_ptr<TransactionTable> transactions;
     Transaction transaction;
+    User user;
+    int user_id;
 };
 
 TEST_CASE_METHOD(TransactionTableFixture, "Get existing transaction",
                  "[Transaction Table]")
 {
-    auto id = transactions->add(transaction);
-    auto transaction_ptr = transactions->get(id);
+    auto transaction_id = transactions->add(transaction);
+    auto transaction_ptr = transactions->get(transaction_id);
     REQUIRE(transaction_ptr != nullptr);
-    REQUIRE(transaction_ptr->id == id);
-    REQUIRE(*(transaction_ptr->user_id) == 1);
+    REQUIRE(transaction_ptr->id == transaction_id);
+    REQUIRE(*(transaction_ptr->user_id) == user_id);
     REQUIRE(transaction_ptr->date == 664416000);
     REQUIRE(transaction_ptr->amount == 1.11);
     REQUIRE(transaction_ptr->note == "test");

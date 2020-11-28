@@ -35,7 +35,8 @@ inline auto init_storage(const std::string &path = "db.sqlite")
                                    make_column("user_id", &Transaction::user_id),
                                    make_column("date", &Transaction::date),
                                    make_column("amount", &Transaction::amount),
-                                   make_column("note", &Transaction::note)));
+                                   make_column("note", &Transaction::note),
+                                   foreign_key(&Transaction::user_id).references(&User::id)));
 }
 
 using Database = decltype(init_storage());

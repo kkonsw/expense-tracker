@@ -24,7 +24,9 @@ public:
         users(std::make_unique<UserTable>(UserTable(db))),
         user({-1, "John", "Doe"})
     {
-        users->removeAll();
+        // clear database
+        db->remove_all<Transaction>();
+        db->remove_all<User>();
     }
 
 protected:
