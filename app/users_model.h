@@ -8,9 +8,6 @@ class UsersModel : public QSqlRelationalTableModel
 {
 public:
     UsersModel(QSqlDatabase *db);
-
-private:
-    void CreateTestData();
 };
 
 #endif // USERSMODEL_H

@@ -14,9 +14,6 @@ public:
 
     QVariant headerData(int section, Qt::Orientation orientation,
                                           int role) const override;
-
-private:
-    void CreateTestData();
 };
 
 #endif // TRANSACTIONS_MODEL_H
