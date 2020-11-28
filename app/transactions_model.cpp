@@ -10,7 +10,15 @@ TransactionsModel::TransactionsModel(QSqlDatabase *db):
 {
     setTable("transactions");
     setRelation(1, QSqlRelation("users", "id", "name"));
+    setEditStrategy(EditStrategy::OnManualSubmit);
+    CreateTestData();
     select();
+}
+
+TransactionsModel::~TransactionsModel()
+{
+    removeRows(0, rowCount());
+    submitAll();
 }
 
 QVariant TransactionsModel::data(const QModelIndex &index, int role) const
@@ -52,12 +60,12 @@ QVariant TransactionsModel::headerData(int section,
 void TransactionsModel::CreateTestData()
 {
     int rows = 4;
-    QSqlRecord record = this->record();
+    auto record = this->record();
     for (int i = 0; i < rows; ++i)
     {
-        record.setValue("user_id", 1);
-        QDateTime timestamp = QDateTime::currentDateTime();
-        int seconds = timestamp.toSecsSinceEpoch();
+        record.setValue("user_id", 5);
+        auto timestamp = QDateTime::currentDateTime();
+        auto seconds = timestamp.toSecsSinceEpoch();
         record.setValue("date", seconds);
         record.setValue("amount", double(1.23 * (i + 1.0)));
         record.setValue("note", "Testing");

@@ -3,6 +3,8 @@
 #include "db/database.h"
 #include "db/transaction_table.h"
 
+#include <memory>
+
 class TransactionTableFixture
 {
 public:
@@ -10,7 +12,7 @@ public:
         db_manager(DBManager()),
         db(db_manager.getDatabase()),
         transactions(std::make_unique<TransactionTable>(TransactionTable(db))),
-        transaction({-1, 1, 664416000, 1.11, "test"})
+        transaction({-1, std::make_unique<int>(1), 664416000, 1.11, "test"})
     {
         transactions->removeAll();
     }
@@ -29,7 +31,7 @@ TEST_CASE_METHOD(TransactionTableFixture, "Get existing transaction",
     auto transaction_ptr = transactions->get(id);
     REQUIRE(transaction_ptr != nullptr);
     REQUIRE(transaction_ptr->id == id);
-    REQUIRE(transaction_ptr->user_id == 1);
+    REQUIRE(*(transaction_ptr->user_id) == 1);
     REQUIRE(transaction_ptr->date == 664416000);
     REQUIRE(transaction_ptr->amount == 1.11);
     REQUIRE(transaction_ptr->note == "test");

@@ -13,7 +13,7 @@ struct User
 struct Transaction
 {
     int id;
-    int user_id;
+    std::unique_ptr<int> user_id;
     int date;
     double amount;
     std::string note;
