@@ -20,7 +20,7 @@ public:
     ~NewTransactionDialog();
 
 private slots:
-    /** Opens new window with all transacions.
+    /** Opens new window with all transactions.
      *
      */
     void viewAllTransactions();
@@ -30,20 +30,35 @@ private slots:
      */
     void addTransaction();
 
+    /** Removes all Transactions from Database.
+     *
+     */
+    void clearTransactions();
+
 private:
     Ui::NewTransactionDialog *ui;
     Database *db;
     TransactionsWindow* w;
 
+    /** User Id for new Transactions.
+     *
+     */
+    int userId = 1;
+
     /** Creates new Transaction with data provided by user.
      *
      */
-    bool createNewTransaction(const Transaction &transaction);
+    bool createNewTransaction(Transaction &transaction);
 
     /** Validates Transaction amount from user input.
      *
      */
-    bool checkTransactionAmount(const QString& amount);
+    bool checkTransactionAmount(QString& amount) const;
+
+    /** Returns date in seconds for Database.
+     *
+     */
+    int getDateInSeconds() const;
 };
 
 #endif // NEWTRANSACTION_DIALOG_H

@@ -22,3 +22,8 @@ TransactionsWindow::~TransactionsWindow()
 {
     delete ui;
 }
+
+void TransactionsWindow::updateModel()
+{
+    model->select();
+}

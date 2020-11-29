@@ -16,11 +16,11 @@ void CreateTestData(Database *db)
     Transaction transaction({-1, nullptr, seconds, 1.11, "Testing"});
 
     int user_id = db->insert(user);
-    transaction.user_id = std::make_unique<int>(user_id);
-    db->insert(transaction);
-    db->insert(transaction);
-    db->insert(transaction);
-    db->insert(transaction);
+//    transaction.user_id = std::make_unique<int>(user_id);
+//    db->insert(transaction);
+//    db->insert(transaction);
+//    db->insert(transaction);
+//    db->insert(transaction);
 }
 
 int main(int argc, char *argv[])
@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
 
     // add data to database
     DBManager db_manager;
-    CreateTestData(db_manager.getDatabase());
+//    CreateTestData(db_manager.getDatabase());
 
     NewTransactionDialog dialog(db_manager.getDatabase());
     dialog.show();

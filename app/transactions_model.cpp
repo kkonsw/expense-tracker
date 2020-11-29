@@ -24,7 +24,7 @@ QVariant TransactionsModel::data(const QModelIndex &index, int role) const
         int seconds = data.toInt();
         QDateTime dateTime;
         dateTime.setSecsSinceEpoch(seconds);
-        return QVariant(dateTime.toString("d MMM yyyy, h:mm"));
+        return QVariant(dateTime.toString("d MMM yyyy"));
     }
 
     return QSqlRelationalTableModel::data(index, role);

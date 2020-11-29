@@ -18,6 +18,8 @@ public:
     explicit TransactionsWindow(QSqlDatabase db, QWidget *parent = nullptr);
     ~TransactionsWindow();
 
+    void updateModel();
+
 private:
     Ui::TransactionsWindow *ui;
     std::unique_ptr<TransactionsModel> model;
