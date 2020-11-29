@@ -18,6 +18,11 @@ TransactionsModel::~TransactionsModel()
 
 QVariant TransactionsModel::data(const QModelIndex &index, int role) const
 {
+
+    if (role == Qt::TextAlignmentRole) {
+         return Qt::AlignCenter;
+    }
+
     if ((role == Qt::DisplayRole) && (index.column() == 2))
     {
         QVariant data = QSqlRelationalTableModel::data(index, role);
