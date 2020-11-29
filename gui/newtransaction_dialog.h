@@ -20,6 +20,7 @@ public:
 
 private slots:
     void viewAllTransactions();
+    void addTransaction();
 
 private:
     Ui::NewTransactionDialog *ui;

@@ -3,17 +3,7 @@
 #include "db/db_manager.h"
 
 #include <QApplication>
-#include <QSqlDatabase>
 #include <QDateTime>
-
-
-QSqlDatabase connectToDatabase()
-{
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("db.sqlite");
-    db.open();
-    return db;
-}
 
 void CreateTestData(Database *db)
 {

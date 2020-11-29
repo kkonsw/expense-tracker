@@ -4,6 +4,7 @@
 
 #include <QDebug>
 #include <QSqlDatabase>
+#include <QDate>
 
 NewTransactionDialog::NewTransactionDialog(Database *db, QWidget *parent) :
     QDialog(parent),
@@ -19,7 +20,10 @@ NewTransactionDialog::NewTransactionDialog(Database *db, QWidget *parent) :
     ui->setupUi(this);
     connect(ui->button_allTransactions, SIGNAL(clicked()), this,
             SLOT(viewAllTransactions()));
-    this->setFixedSize(400, 200);
+    connect(ui->button_addTransaction, SIGNAL(clicked()), this,
+            SLOT(addTransaction()));
+    this->setFixedSize(300, 350);
+    ui->dateEdit->setDate(QDate::currentDate());
 }
 
 NewTransactionDialog::~NewTransactionDialog()
@@ -41,4 +45,9 @@ void NewTransactionDialog::viewAllTransactions()
         w = new TransactionsWindow(db);
     }
     w->show();
+}
+
+void NewTransactionDialog::addTransaction()
+{
+
 }

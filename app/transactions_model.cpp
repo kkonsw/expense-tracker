@@ -1,8 +1,6 @@
 #include "transactions_model.h"
 
-#include <QSqlRecord>
 #include <QDateTime>
-#include <QDebug>
 
 
 TransactionsModel::TransactionsModel(QSqlDatabase db):
