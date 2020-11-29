@@ -141,10 +141,12 @@ border-color: rgb(0, 0, 0);</string>
       </font>
      </property>
      <property name="focusPolicy">
-      <enum>Qt::NoFocus</enum>
+      <enum>Qt::TabFocus</enum>
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);
+selection-background-color: rgb(255, 255, 255);
+selection-color: rgb(255, 255, 255);
 border-color: rgb(0, 0, 0);</string>
      </property>
      <property name="text">

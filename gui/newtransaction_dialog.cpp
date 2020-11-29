@@ -1,9 +1,11 @@
 #include "newtransaction_dialog.h"
 #include "ui_newtransaction_dialog.h"
 #include "transactions_window.h"
+#include "message_dialog.h"
 
 #include <QDebug>
 #include <QSqlDatabase>
+#include <QDoubleValidator>
 #include <QDate>
 
 NewTransactionDialog::NewTransactionDialog(Database *db, QWidget *parent) :
@@ -18,11 +20,13 @@ NewTransactionDialog::NewTransactionDialog(Database *db, QWidget *parent) :
     }
 
     ui->setupUi(this);
+    this->setFixedSize(300, 350);
+    this->setWindowTitle("New Transaction");
+
     connect(ui->button_allTransactions, SIGNAL(clicked()), this,
             SLOT(viewAllTransactions()));
     connect(ui->button_addTransaction, SIGNAL(clicked()), this,
             SLOT(addTransaction()));
-    this->setFixedSize(300, 350);
     ui->dateEdit->setDate(QDate::currentDate());
 }
 
@@ -49,5 +53,25 @@ void NewTransactionDialog::viewAllTransactions()
 
 void NewTransactionDialog::addTransaction()
 {
+    Transaction transaction;
+    if (createNewTransaction(transaction))
+    {
+    }
+}
 
+bool NewTransactionDialog::createNewTransaction(const Transaction &transaction)
+{
+    auto date = ui->dateEdit->date();
+    auto amount = ui->lineEdit_amount->text();
+    if (!checkTransactionAmount(amount))
+    {
+        MessageDialog::information(this, "Incorrect amount!");
+    }
+
+    return false;
+}
+
+bool NewTransactionDialog::checkTransactionAmount(const QString &amount)
+{
+    return false;
 }

@@ -5,10 +5,12 @@ CONFIG += c++14
 
 SOURCES += \
     main.cpp \
+    message_dialog.cpp \
     newtransaction_dialog.cpp \
     transactions_window.cpp
 
 HEADERS += \
+    message_dialog.h \
     newtransaction_dialog.h \
     transactions_window.h
 
@@ -26,6 +28,7 @@ DEPENDPATH += $$PWD/../app
 unix:!macx: PRE_TARGETDEPS += $$OUT_PWD/../app/libapp.a
 
 FORMS += \
+    message_dialog.ui \
     newtransaction_dialog.ui \
     transactions_window.ui
 

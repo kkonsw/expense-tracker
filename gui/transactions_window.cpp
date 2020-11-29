@@ -7,6 +7,7 @@ TransactionsWindow::TransactionsWindow(QSqlDatabase db, QWidget *parent) :
     model(new TransactionsModel(db))
 {
     ui->setupUi(this);
+    this->setWindowTitle("All Transactions");
     this->setFixedSize(600, 300);
 
     // set up table
