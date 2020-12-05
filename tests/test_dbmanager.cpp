@@ -21,8 +21,9 @@ TEST_CASE("Get table names from database", "[DBManager]")
 
     auto tables = db->table_names();
     std::sort(tables.begin(), tables.end());
-    REQUIRE(tables.size() == 3);
-    REQUIRE(tables[0] == "sqlite_sequence");
-    REQUIRE(tables[1] == "transactions");
-    REQUIRE(tables[2] == "users");
+    REQUIRE(tables.size() == 4);
+    REQUIRE(tables[0] == "categories");
+    REQUIRE(tables[1] == "sqlite_sequence");
+    REQUIRE(tables[2] == "transactions");
+    REQUIRE(tables[3] == "users");
 }

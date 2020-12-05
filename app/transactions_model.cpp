@@ -8,6 +8,7 @@ TransactionsModel::TransactionsModel(QSqlDatabase db):
 {
     setTable("transactions");
     setRelation(1, QSqlRelation("users", "id", "name"));
+    setRelation(4, QSqlRelation("categories", "id", "cat_name"));
     select();
 }
 
@@ -50,6 +51,8 @@ QVariant TransactionsModel::headerData(int section,
         case 3:
             return QString("Amount");
         case 4:
+            return QString("Category");
+        case 5:
             return QString("Note");
         }
     }

@@ -7,17 +7,12 @@
 
 void CreateTestData(Database *db)
 {
-    db->remove_all<Transaction>();
-    db->remove_all<User>();
-
     User user({-1, "John Doe"});
     db->insert(user);
 }
 
 void AddCategories(Database *db)
 {
-    db->remove_all<Category>();
-
     db->insert<Category>({-1, "Bills"});
     db->insert<Category>({-1, "Food"});
     db->insert<Category>({-1, "Leisure"});

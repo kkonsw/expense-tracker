@@ -74,10 +74,17 @@ bool NewTransactionDialog::createNewTransaction(Transaction &transaction)
         MessageDialog::information(this, "Incorrect amount!");
         return false;
     }
-    transaction.amount = amount.toDouble();
-    transaction.date = getDateInSeconds();
-    transaction.note = ui->lineEdit_note->text().toStdString();
+    if (ui->comboBox->currentIndex() == 0)
+    {
+        MessageDialog::information(this, "Select category!");
+        return false;
+    }
+
     transaction.user_id = std::make_unique<int>(userId);
+    transaction.date = getDateInSeconds();
+    transaction.amount = amount.toDouble();
+    transaction.cat_id = std::make_unique<int>(getSelectedCategoryId());
+    transaction.note = ui->lineEdit_note->text().toStdString();
 
     return true;
 }
@@ -115,6 +122,19 @@ void NewTransactionDialog::addCategoriesToUI() const
     for (const auto& cat : categories) {
         ui->comboBox->addItem(QString::fromUtf8(cat.cat_name.c_str()));
     }
+}
+
+int NewTransactionDialog::getSelectedCategoryId() const
+{
+    auto cat_name = ui->comboBox->currentText().toStdString();
+    auto categories = db->get_all<Category>(where(c(&Category::cat_name)
+                                                  == cat_name));
+
+    if (categories.empty()) {
+        throw::std::runtime_error("Category not found in database!");
+    }
+
+    return categories.begin()->id;
 }
 
 void NewTransactionDialog::clearTransactions()

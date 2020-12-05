@@ -70,6 +70,11 @@ private:
      *
      */
     void addCategoriesToUI() const;
+
+    /** Returns category id from Database.
+     *
+     */
+    int getSelectedCategoryId() const;
 };
 
 #endif // NEWTRANSACTION_DIALOG_H

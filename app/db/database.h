@@ -15,6 +15,7 @@ struct Transaction
     std::unique_ptr<int> user_id;
     int date;
     double amount;
+    std::unique_ptr<int> cat_id;
     std::string note;
 };
 
@@ -46,8 +47,10 @@ inline auto init_storage(const std::string &path = "db.sqlite")
                                    make_column("user_id", &Transaction::user_id),
                                    make_column("date", &Transaction::date),
                                    make_column("amount", &Transaction::amount),
+                                   make_column("cat_id", &Transaction::cat_id),
                                    make_column("note", &Transaction::note),
-                                   foreign_key(&Transaction::user_id).references(&User::id)),
+                                   foreign_key(&Transaction::user_id).references(&User::id),
+                                   foreign_key(&Transaction::cat_id).references(&Category::id)),
                         make_table("categories",
                                    make_column("id", &Category::id,
                                                autoincrement(), primary_key()),
