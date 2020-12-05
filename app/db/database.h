@@ -18,6 +18,19 @@ struct Transaction
     std::string note;
 };
 
+struct Category
+{
+    int id;
+    std::string cat_name;
+};
+
+struct SubCategory
+{
+    int id;
+    std::unique_ptr<int> cat_id;
+    std::string subcat_name;
+};
+
 using namespace sqlite_orm;
 
 inline auto init_storage(const std::string &path = "db.sqlite")
@@ -34,7 +47,11 @@ inline auto init_storage(const std::string &path = "db.sqlite")
                                    make_column("date", &Transaction::date),
                                    make_column("amount", &Transaction::amount),
                                    make_column("note", &Transaction::note),
-                                   foreign_key(&Transaction::user_id).references(&User::id)));
+                                   foreign_key(&Transaction::user_id).references(&User::id)),
+                        make_table("categories",
+                                   make_column("id", &Category::id,
+                                               autoincrement(), primary_key()),
+                                   make_column("cat_name", &Category::cat_name)));
 }
 
 using Database = decltype(init_storage());

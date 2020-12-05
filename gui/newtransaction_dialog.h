@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QString>
+#include <vector>
 
 #include "db/database.h"
 #include "transactions_window.h"
@@ -59,6 +60,16 @@ private:
      *
      */
     int getDateInSeconds() const;
+
+    /** Returns all categories from database.
+     *
+     */
+    std::vector<Category> getCategoriesFromDatabase() const;
+
+    /** Updates New Transaction dialog with categories from database.
+     *
+     */
+    void addCategoriesToUI() const;
 };
 
 #endif // NEWTRANSACTION_DIALOG_H

@@ -8,7 +8,7 @@ class DBManager
 {
 public:
     DBManager();
-    Database *getDatabase();
+    Database * getDatabase();
 
 private:
 

@@ -8,6 +8,7 @@
 #include <QDoubleValidator>
 #include <QDateTime>
 #include <QDate>
+#include <QString>
 
 NewTransactionDialog::NewTransactionDialog(Database *db, QWidget *parent) :
     QDialog(parent),
@@ -31,6 +32,7 @@ NewTransactionDialog::NewTransactionDialog(Database *db, QWidget *parent) :
     connect(ui->button_clearTransactions, SIGNAL(clicked()), this,
             SLOT(clearTransactions()));
     ui->dateEdit->setDate(QDate::currentDate());
+    addCategoriesToUI();
 }
 
 NewTransactionDialog::~NewTransactionDialog()
@@ -102,7 +104,22 @@ int NewTransactionDialog::getDateInSeconds() const
     return seconds;
 }
 
+std::vector<Category> NewTransactionDialog::getCategoriesFromDatabase() const
+{
+    return db->get_all<Category>();
+}
+
+void NewTransactionDialog::addCategoriesToUI() const
+{
+    auto categories = getCategoriesFromDatabase();
+    for (const auto& cat : categories) {
+        ui->comboBox->addItem(QString::fromUtf8(cat.cat_name.c_str()));
+    }
+}
+
 void NewTransactionDialog::clearTransactions()
 {
+
+    MessageDialog::information(this, "All Transactions were removed!");
     db->remove_all<Transaction>();
 }
