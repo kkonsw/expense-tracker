@@ -31,11 +31,6 @@ private slots:
      */
     void addTransaction();
 
-    /** Removes all Transactions from Database.
-     *
-     */
-    void clearTransactions();
-
 private:
     Ui::NewTransactionDialog *ui;
     Database *db;

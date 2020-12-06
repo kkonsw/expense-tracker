@@ -5,6 +5,7 @@
 #include <QtSql/QSqlDatabase>
 
 #include "transactions_model.h"
+#include "db/database.h"
 
 namespace Ui {
 class TransactionsWindow;
@@ -15,14 +16,31 @@ class TransactionsWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit TransactionsWindow(QSqlDatabase db, QWidget *parent = nullptr);
+    explicit TransactionsWindow(QSqlDatabase db, Database *database,
+                                QWidget *parent = nullptr);
     ~TransactionsWindow();
 
-    void updateModel();
+    /** Updates table with Transactions from Database.
+     *
+     */
+    void update();
 
 private:
     Ui::TransactionsWindow *ui;
     std::unique_ptr<TransactionsModel> model;
+    Database *db;
+
+    /** Returns total expenses.
+     *
+     */
+    double getTotalExpenses() const;
+
+private slots:
+
+    /** Removes all Transactions from Database.
+     *
+     */
+    void clearTransactions();
 };
 
 #endif // TRANSACTIONS_WINDOW_H

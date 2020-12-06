@@ -31,8 +31,6 @@ NewTransactionDialog::NewTransactionDialog(Database *db, QWidget *parent) :
             SLOT(viewAllTransactions()));
     connect(ui->button_addTransaction, SIGNAL(clicked()), this,
             SLOT(addTransaction()));
-    connect(ui->button_clearTransactions, SIGNAL(clicked()), this,
-            SLOT(clearTransactions()));
     ui->dateEdit->setDate(QDate::currentDate());
     addCategoriesToUI();
 }
@@ -50,12 +48,12 @@ void NewTransactionDialog::viewAllTransactions()
 {
     if (w == nullptr)
     {
-        QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName("db.sqlite");
-        db.open();
-        w = new TransactionsWindow(db);
+        QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
+        database.setDatabaseName("db.sqlite");
+        database.open();
+        w = new TransactionsWindow(database, db);
     }
-    w->updateModel();
+    w->update();
     w->show();
 }
 
@@ -150,6 +148,7 @@ void NewTransactionDialog::changeQDateEditStyleSheet()
                           "QDateEdit"
                           "{"
                           "color: white;"
+                          "selection-background-color: grey;"
                           "}"
                           "QDateEdit QAbstractItemView::disabled"
                           "{"
@@ -158,10 +157,4 @@ void NewTransactionDialog::changeQDateEditStyleSheet()
 
     ui->dateEdit->setStyleSheet(style_sheet);
     ui->dateEdit->calendarWidget()->setFirstDayOfWeek(Qt::DayOfWeek::Monday);
-}
-
-void NewTransactionDialog::clearTransactions()
-{
-    MessageDialog::information(this, "All Transactions were removed!");
-    db->remove_all<Transaction>();
 }
