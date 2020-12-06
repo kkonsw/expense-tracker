@@ -16,6 +16,7 @@ TransactionsWindow::TransactionsWindow(QSqlDatabase db, QWidget *parent) :
                 QHeaderView::Stretch);
     ui->tableView->hideColumn(0);
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableView->setSortingEnabled(true);
 }
 
 TransactionsWindow::~TransactionsWindow()

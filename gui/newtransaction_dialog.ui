@@ -51,7 +51,7 @@ selection-color: rgb(255, 255, 255);
 border-color: rgb(0, 0, 0);</string>
          </property>
          <property name="text">
-          <string>All Transactions</string>
+          <string>Transactions</string>
          </property>
          <property name="flat">
           <bool>false</bool>
