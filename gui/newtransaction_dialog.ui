@@ -106,7 +106,7 @@ border-color: rgb(0, 0, 0);</string>
         </font>
        </property>
        <property name="focusPolicy">
-        <enum>Qt::NoFocus</enum>
+        <enum>Qt::StrongFocus</enum>
        </property>
        <property name="styleSheet">
         <string notr="true">color: rgb(255, 255, 255);</string>
@@ -115,7 +115,7 @@ border-color: rgb(0, 0, 0);</string>
         <string>d/M/yy</string>
        </property>
        <property name="calendarPopup">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
      </item>

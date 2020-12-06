@@ -27,9 +27,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    // add data to database
     DBManager db_manager;
-
     NewTransactionDialog dialog(db_manager.getDatabase());
     dialog.show();
 

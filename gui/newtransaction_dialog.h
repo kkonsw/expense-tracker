@@ -75,6 +75,11 @@ private:
      *
      */
     int getSelectedCategoryId() const;
+
+    /** Changes QDateEdit default Style Sheet.
+     *
+     */
+    void changeQDateEditStyleSheet();
 };
 
 #endif // NEWTRANSACTION_DIALOG_H

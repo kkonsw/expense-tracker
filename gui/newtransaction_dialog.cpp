@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QSqlDatabase>
 #include <QDoubleValidator>
+#include <QCalendarWidget>
 #include <QDateTime>
 #include <QDate>
 #include <QString>
@@ -24,6 +25,7 @@ NewTransactionDialog::NewTransactionDialog(Database *db, QWidget *parent) :
     ui->setupUi(this);
     this->setFixedSize(300, 350);
     this->setWindowTitle("New Transaction");
+    changeQDateEditStyleSheet();
 
     connect(ui->button_allTransactions, SIGNAL(clicked()), this,
             SLOT(viewAllTransactions()));
@@ -38,7 +40,7 @@ NewTransactionDialog::NewTransactionDialog(Database *db, QWidget *parent) :
 NewTransactionDialog::~NewTransactionDialog()
 {
     delete ui;
-    if (w == nullptr)
+    if (w != nullptr)
     {
         delete w;
     }
@@ -137,9 +139,29 @@ int NewTransactionDialog::getSelectedCategoryId() const
     return categories.begin()->id;
 }
 
+void NewTransactionDialog::changeQDateEditStyleSheet()
+{
+    QString style_sheet = "QCalendarWidget QTableView"
+                          "{"
+                          "alternate-background-color: grey;"
+                          "color: white;"
+                          "selection-background-color: grey;"
+                          "}"
+                          "QDateEdit"
+                          "{"
+                          "color: white;"
+                          "}"
+                          "QDateEdit QAbstractItemView::disabled"
+                          "{"
+                          "color: grey;"
+                          "}";
+
+    ui->dateEdit->setStyleSheet(style_sheet);
+    ui->dateEdit->calendarWidget()->setFirstDayOfWeek(Qt::DayOfWeek::Monday);
+}
+
 void NewTransactionDialog::clearTransactions()
 {
-
     MessageDialog::information(this, "All Transactions were removed!");
     db->remove_all<Transaction>();
 }
