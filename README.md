@@ -1,3 +1,3 @@
-# xclicker
+# Expense Tracker
 
 Simple expense tracker.

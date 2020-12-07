@@ -19,7 +19,6 @@ void AddCategories(Database *db)
     db->insert<Category>({-1, "Homeneeds"});
     db->insert<Category>({-1, "Transport"});
     db->insert<Category>({-1, "Healthcare"});
-    db->insert<Category>({-1, "Income"});
     db->insert<Category>({-1, "Miscellaneous"});
 }
 
