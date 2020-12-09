@@ -8,9 +8,9 @@ class DBManager
 {
 public:
     static Database* getDatabase();
-    Database* getDB();
 
 private:
+    Database* getDB();
     DBManager();
     std::unique_ptr<Database> db;
 };

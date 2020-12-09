@@ -3,6 +3,9 @@
 #include "message_dialog.h"
 #include "db/db_manager.h"
 
+#include <QDebug>
+#include <algorithm>
+
 TransactionsWindow::TransactionsWindow(QSqlDatabase db, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::TransactionsWindow),
@@ -46,7 +49,9 @@ void TransactionsWindow::update()
 
 double TransactionsWindow::getTotalExpenses() const
 {
-    return 0.0;
+    auto query = db->prepare(select(&Transaction::amount));
+    auto expenses = db->execute(query);
+    return std::accumulate(expenses.begin(), expenses.end(), 0.0);
 }
 
 void TransactionsWindow::clearTransactions()

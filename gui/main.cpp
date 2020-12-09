@@ -5,10 +5,9 @@
 #include <QApplication>
 #include <QDateTime>
 
-void CreateTestData(Database *db)
+void CreateUsers(Database *db)
 {
-    User user({-1, "John Doe"});
-    db->insert(user);
+    db->insert<User>({-1, "John Doe"});
 }
 
 void AddCategories(Database *db)

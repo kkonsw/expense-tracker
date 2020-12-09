@@ -29,7 +29,7 @@ private:
     std::unique_ptr<TransactionsModel> model;
     Database *db;
 
-    /** Returns total expenses.
+    /** Returns total expenses from Database.
      *
      */
     double getTotalExpenses() const;
