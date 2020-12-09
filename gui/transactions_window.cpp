@@ -23,6 +23,8 @@ TransactionsWindow::TransactionsWindow(QSqlDatabase db, QWidget *parent) :
 
     connect(ui->button_clearTransactions, SIGNAL(clicked()), this,
             SLOT(clearTransactions()));
+    connect(ui->button_applyFilters, SIGNAL(clicked()), this,
+            SLOT(applyFilters()));
 
     // set up table
     ui->tableView->setModel(model.get());
@@ -32,6 +34,9 @@ TransactionsWindow::TransactionsWindow(QSqlDatabase db, QWidget *parent) :
     ui->tableView->hideColumn(5);
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableView->setSortingEnabled(true);
+
+    addCategoriesToUI();
+    ui->dateEdit_end->setDate(QDate::currentDate());
 }
 
 TransactionsWindow::~TransactionsWindow()
@@ -42,17 +47,17 @@ TransactionsWindow::~TransactionsWindow()
 void TransactionsWindow::update()
 {
     model->select();
-
-    auto total_expenses = getTotalExpenses();
-    ui->label_totalExpenses->setText("Total Expenses: "
-                                     + QString::number(total_expenses, 'f', 2));
+    updateExpenseLabels();
 }
 
-double TransactionsWindow::getTotalExpenses() const
+void TransactionsWindow::updateExpenseLabels()
 {
     auto query = db->prepare(select(&Transaction::amount));
     auto expenses = db->execute(query);
-    return std::accumulate(expenses.begin(), expenses.end(), 0.0);
+    auto total =  std::accumulate(expenses.begin(), expenses.end(), 0.0);
+    auto max = *std::max_element(expenses.begin(), expenses.end());
+    ui->label_totalExpensesVal->setText(QString::number(total, 'f', 2));
+    ui->label_biggestExpenseVal->setText(QString::number(max, 'f', 2));
 }
 
 void TransactionsWindow::clearTransactions()
@@ -60,4 +65,17 @@ void TransactionsWindow::clearTransactions()
     MessageDialog::information(this, "All Transactions were removed!");
     db->remove_all<Transaction>();
     update();
+}
+
+void TransactionsWindow::applyFilters()
+{
+    qDebug("Apply filter");
+}
+
+void TransactionsWindow::addCategoriesToUI()
+{
+    auto categories = db->get_all<Category>();
+    for (const auto& cat : categories) {
+        ui->comboBox_category->addItem(QString::fromUtf8(cat.cat_name.c_str()));
+    }
 }

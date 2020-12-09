@@ -39,7 +39,17 @@ private:
     /** User Id for new Transactions.
      *
      */
-    int userId = 1;
+    int userId = 0;
+
+    /** User Name.
+     *
+     */
+    std::string userName;
+
+    /** Returns user id from name.
+     *
+     */
+    int getUserIdFromDatabase();
 
     /** Creates new Transaction with data provided by user.
      *
@@ -56,12 +66,7 @@ private:
      */
     int getDateInSeconds() const;
 
-    /** Returns all categories from database.
-     *
-     */
-    std::vector<Category> getCategoriesFromDatabase() const;
-
-    /** Updates New Transaction dialog with categories from database.
+    /** Updates combo box with categories from database.
      *
      */
     void addCategoriesToUI() const;

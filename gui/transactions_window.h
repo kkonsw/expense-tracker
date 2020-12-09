@@ -29,10 +29,12 @@ private:
     std::unique_ptr<TransactionsModel> model;
     Database *db;
 
-    /** Returns total expenses from Database.
+    void updateExpenseLabels();
+
+    /** Updates combo box with categories from database.
      *
      */
-    double getTotalExpenses() const;
+    void addCategoriesToUI();
 
 private slots:
 
@@ -40,6 +42,12 @@ private slots:
      *
      */
     void clearTransactions();
+
+    /** Show Transactions with current filters.
+     *
+     */
+    void applyFilters();
+
 };
 
 #endif // TRANSACTIONS_WINDOW_H

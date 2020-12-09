@@ -7,7 +7,7 @@
 
 void CreateUsers(Database *db)
 {
-    db->insert<User>({-1, "John Doe"});
+    db->insert<User>({-1, "Kuznetsov Konstantin"});
 }
 
 void AddCategories(Database *db)

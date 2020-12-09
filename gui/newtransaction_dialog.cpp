@@ -16,12 +16,14 @@ NewTransactionDialog::NewTransactionDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::NewTransactionDialog),
     db(DBManager::getDatabase()),
-    w(nullptr)
+    w(nullptr),
+    userName("Kuznetsov Konstantin")
 {
     if (db == nullptr)
     {
         throw std::runtime_error("Database is not initialized!");
     }
+    userId = getUserIdFromDatabase();
 
     ui->setupUi(this);
     this->setFixedSize(300, 350);
@@ -65,6 +67,16 @@ void NewTransactionDialog::addTransaction()
     {
         db->insert<Transaction>(transaction);
     }
+}
+
+int NewTransactionDialog::getUserIdFromDatabase()
+{
+    auto users = db->get_all<User>(where(c(&User::name) == userName));
+    if (users.empty()) {
+        throw::std::runtime_error("User not found in database!");
+    }
+
+    return users.begin()->id;
 }
 
 bool NewTransactionDialog::createNewTransaction(Transaction &transaction)
@@ -112,14 +124,9 @@ int NewTransactionDialog::getDateInSeconds() const
     return seconds;
 }
 
-std::vector<Category> NewTransactionDialog::getCategoriesFromDatabase() const
-{
-    return db->get_all<Category>();
-}
-
 void NewTransactionDialog::addCategoriesToUI() const
 {
-    auto categories = getCategoriesFromDatabase();
+    auto categories = db->get_all<Category>();
     for (const auto& cat : categories) {
         ui->comboBox->addItem(QString::fromUtf8(cat.cat_name.c_str()));
     }
@@ -145,6 +152,7 @@ void NewTransactionDialog::changeQDateEditStyleSheet()
                           "alternate-background-color: grey;"
                           "color: white;"
                           "selection-background-color: grey;"
+                          "selection-color: white"
                           "}"
                           "QDateEdit"
                           "{"
@@ -158,4 +166,11 @@ void NewTransactionDialog::changeQDateEditStyleSheet()
 
     ui->dateEdit->setStyleSheet(style_sheet);
     ui->dateEdit->calendarWidget()->setFirstDayOfWeek(Qt::DayOfWeek::Monday);
+
+    QTextCharFormat weekendFormat;
+    weekendFormat.setForeground(QBrush(Qt::white, Qt::SolidPattern));
+    ui->dateEdit->calendarWidget()->setWeekdayTextFormat(Qt::Saturday,
+                                                         weekendFormat);
+    ui->dateEdit->calendarWidget()->setWeekdayTextFormat(Qt::Sunday,
+                                                         weekendFormat);
 }
