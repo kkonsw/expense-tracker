@@ -1,13 +1,13 @@
 #include "transactions_window.h"
 #include "ui_transactions_window.h"
 #include "message_dialog.h"
+#include "db/db_manager.h"
 
-TransactionsWindow::TransactionsWindow(QSqlDatabase db, Database *database,
-                                       QWidget *parent) :
+TransactionsWindow::TransactionsWindow(QSqlDatabase db, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::TransactionsWindow),
     model(new TransactionsModel(db)),
-    db(database)
+    db(DBManager::getDatabase())
 {
     if (this->db == nullptr)
     {

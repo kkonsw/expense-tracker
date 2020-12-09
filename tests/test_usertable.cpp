@@ -10,8 +10,7 @@ TEST_CASE("Create users table without database throws", "[User Table]")
 
 TEST_CASE("Create users table with valid database", "[User Table]")
 {
-    DBManager db_manager;
-    Database* db = db_manager.getDatabase();
+    Database* db = DBManager::getDatabase();
     REQUIRE_NOTHROW(UserTable(db));
 }
 
@@ -19,8 +18,7 @@ class UserTableFixture
 {
 public:
     UserTableFixture():
-        db_manager(DBManager()),
-        db(db_manager.getDatabase()),
+        db(DBManager::getDatabase()),
         users(std::make_unique<UserTable>(UserTable(db))),
         user({-1, "John Doe"})
     {
@@ -30,7 +28,6 @@ public:
     }
 
 protected:
-    DBManager db_manager;
     Database* db;
     std::unique_ptr<UserTable> users;
     User user;

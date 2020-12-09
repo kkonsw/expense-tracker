@@ -9,8 +9,7 @@ class TransactionTableFixture
 {
 public:
     TransactionTableFixture():
-        db_manager(DBManager()),
-        db(db_manager.getDatabase()),
+        db(DBManager::getDatabase()),
         transactions(std::make_unique<TransactionTable>(TransactionTable(db))),
         transaction({-1, nullptr, 664416000, 1.11, nullptr, "test"}),
         user({-1, "John Doe"})
@@ -25,7 +24,6 @@ public:
     }
 
 protected:
-    DBManager db_manager;
     Database* db;
     std::unique_ptr<TransactionTable> transactions;
     Transaction transaction;

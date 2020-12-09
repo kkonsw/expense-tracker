@@ -26,8 +26,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    DBManager db_manager;
-    NewTransactionDialog dialog(db_manager.getDatabase());
+    NewTransactionDialog dialog;
     dialog.show();
 
     return a.exec();

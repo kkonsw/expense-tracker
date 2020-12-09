@@ -16,8 +16,7 @@ class TransactionsWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit TransactionsWindow(QSqlDatabase db, Database *database,
-                                QWidget *parent = nullptr);
+    explicit TransactionsWindow(QSqlDatabase db, QWidget *parent = nullptr);
     ~TransactionsWindow();
 
     /** Updates table with Transactions from Database.

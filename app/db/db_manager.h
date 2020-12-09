@@ -7,11 +7,11 @@
 class DBManager
 {
 public:
-    DBManager();
-    Database * getDatabase();
+    static Database* getDatabase();
+    Database* getDB();
 
 private:
-
+    DBManager();
     std::unique_ptr<Database> db;
 };
 

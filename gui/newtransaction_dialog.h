@@ -17,7 +17,7 @@ class NewTransactionDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit NewTransactionDialog(Database *db, QWidget *parent = nullptr);
+    explicit NewTransactionDialog(QWidget *parent = nullptr);
     ~NewTransactionDialog();
 
 private slots:

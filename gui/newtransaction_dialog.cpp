@@ -2,6 +2,7 @@
 #include "ui_newtransaction_dialog.h"
 #include "transactions_window.h"
 #include "message_dialog.h"
+#include "db/db_manager.h"
 
 #include <QDebug>
 #include <QSqlDatabase>
@@ -11,10 +12,10 @@
 #include <QDate>
 #include <QString>
 
-NewTransactionDialog::NewTransactionDialog(Database *db, QWidget *parent) :
+NewTransactionDialog::NewTransactionDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::NewTransactionDialog),
-    db(db),
+    db(DBManager::getDatabase()),
     w(nullptr)
 {
     if (db == nullptr)
@@ -51,7 +52,7 @@ void NewTransactionDialog::viewAllTransactions()
         QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
         database.setDatabaseName("db.sqlite");
         database.open();
-        w = new TransactionsWindow(database, db);
+        w = new TransactionsWindow(database);
     }
     w->update();
     w->show();

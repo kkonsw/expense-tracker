@@ -9,5 +9,11 @@ DBManager::DBManager():
 
 Database * DBManager::getDatabase()
 {
+    static DBManager manager;
+    return manager.getDB();
+}
+
+Database *DBManager::getDB()
+{
     return db.get();
 }
