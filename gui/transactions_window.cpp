@@ -19,7 +19,7 @@ TransactionsWindow::TransactionsWindow(QSqlDatabase db, QWidget *parent) :
 
     ui->setupUi(this);
     this->setWindowTitle("All Transactions");
-    this->setFixedSize(600, 300);
+    this->setFixedSize(600, 600);
 
     connect(ui->button_clearTransactions, SIGNAL(clicked()), this,
             SLOT(clearTransactions()));
@@ -29,6 +29,7 @@ TransactionsWindow::TransactionsWindow(QSqlDatabase db, QWidget *parent) :
     ui->tableView->horizontalHeader()->setSectionResizeMode(
                 QHeaderView::Stretch);
     ui->tableView->hideColumn(0);
+    ui->tableView->hideColumn(5);
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableView->setSortingEnabled(true);
 }

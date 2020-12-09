@@ -149,7 +149,7 @@ void NewTransactionDialog::changeQDateEditStyleSheet()
                           "QDateEdit"
                           "{"
                           "color: white;"
-                          "selection-background-color: grey;"
+                          "selection-background-color: white;"
                           "}"
                           "QDateEdit QAbstractItemView::disabled"
                           "{"
