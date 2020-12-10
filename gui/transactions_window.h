@@ -39,6 +39,11 @@ private:
      */
     void addCategoriesToUI();
 
+    /** Sets model filter from selected category.
+     *
+     */
+    void setCategoryFilter();
+
 private slots:
 
     /** Removes all Transactions from Database.

@@ -78,7 +78,8 @@ void TransactionsWindow::removeSelectedTransactions()
 
 void TransactionsWindow::applyFilters()
 {
-    qDebug("Apply filter");
+    setCategoryFilter();
+    update();
 }
 
 void TransactionsWindow::addCategoriesToUI()
@@ -87,4 +88,16 @@ void TransactionsWindow::addCategoriesToUI()
     for (const auto& cat : cat_names) {
         ui->comboBox_category->addItem(QString::fromUtf8(cat.cat_name.c_str()));
     }
+}
+
+void TransactionsWindow::setCategoryFilter()
+{
+    QString cat_name = ui->comboBox_category->currentText();
+    if (cat_name == "All Categories") {
+        model->setFilter("");
+        return;
+    }
+    auto cat_id = categories->getIdFromName(cat_name.toStdString());
+    QString filter = QString("cat_id='%1'").arg(QString::number(cat_id));
+    model->setFilter(filter);
 }
