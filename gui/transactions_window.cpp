@@ -2,6 +2,7 @@
 #include "ui_transactions_window.h"
 #include "message_dialog.h"
 #include "db/db_manager.h"
+#include "style.h"
 
 #include <QDebug>
 #include <algorithm>
@@ -21,11 +22,6 @@ TransactionsWindow::TransactionsWindow(QSqlDatabase db, QWidget *parent) :
     this->setWindowTitle("All Transactions");
     this->setFixedSize(600, 600);
 
-    connect(ui->button_clearTransactions, SIGNAL(clicked()), this,
-            SLOT(clearTransactions()));
-    connect(ui->button_applyFilters, SIGNAL(clicked()), this,
-            SLOT(applyFilters()));
-
     // set up table
     ui->tableView->setModel(model.get());
     ui->tableView->horizontalHeader()->setSectionResizeMode(
@@ -36,7 +32,14 @@ TransactionsWindow::TransactionsWindow(QSqlDatabase db, QWidget *parent) :
     ui->tableView->setSortingEnabled(true);
 
     addCategoriesToUI();
+    Style::changeQDateEditStyleSheet(ui->dateEdit_start);
+    Style::changeQDateEditStyleSheet(ui->dateEdit_end);
     ui->dateEdit_end->setDate(QDate::currentDate());
+
+    connect(ui->button_clearTransactions, SIGNAL(clicked()), this,
+            SLOT(clearTransactions()));
+    connect(ui->button_applyFilters, SIGNAL(clicked()), this,
+            SLOT(applyFilters()));
 }
 
 TransactionsWindow::~TransactionsWindow()

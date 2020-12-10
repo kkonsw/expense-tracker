@@ -3,6 +3,7 @@
 #include "transactions_window.h"
 #include "message_dialog.h"
 #include "db/db_manager.h"
+#include "style.h"
 
 #include <QDebug>
 #include <QSqlDatabase>
@@ -28,14 +29,14 @@ NewTransactionDialog::NewTransactionDialog(QWidget *parent) :
     ui->setupUi(this);
     this->setFixedSize(300, 350);
     this->setWindowTitle("New Transaction");
-    changeQDateEditStyleSheet();
+    Style::changeQDateEditStyleSheet(ui->dateEdit);
+    ui->dateEdit->setDate(QDate::currentDate());
+    addCategoriesToUI();
 
     connect(ui->button_allTransactions, SIGNAL(clicked()), this,
             SLOT(viewAllTransactions()));
     connect(ui->button_addTransaction, SIGNAL(clicked()), this,
             SLOT(addTransaction()));
-    ui->dateEdit->setDate(QDate::currentDate());
-    addCategoriesToUI();
 }
 
 NewTransactionDialog::~NewTransactionDialog()
@@ -143,34 +144,4 @@ int NewTransactionDialog::getSelectedCategoryId() const
     }
 
     return categories.begin()->id;
-}
-
-void NewTransactionDialog::changeQDateEditStyleSheet()
-{
-    QString style_sheet = "QCalendarWidget QTableView"
-                          "{"
-                          "alternate-background-color: grey;"
-                          "color: white;"
-                          "selection-background-color: grey;"
-                          "selection-color: white"
-                          "}"
-                          "QDateEdit"
-                          "{"
-                          "color: white;"
-                          "selection-background-color: white;"
-                          "}"
-                          "QDateEdit QAbstractItemView::disabled"
-                          "{"
-                          "color: grey;"
-                          "}";
-
-    ui->dateEdit->setStyleSheet(style_sheet);
-    ui->dateEdit->calendarWidget()->setFirstDayOfWeek(Qt::DayOfWeek::Monday);
-
-    QTextCharFormat weekendFormat;
-    weekendFormat.setForeground(QBrush(Qt::white, Qt::SolidPattern));
-    ui->dateEdit->calendarWidget()->setWeekdayTextFormat(Qt::Saturday,
-                                                         weekendFormat);
-    ui->dateEdit->calendarWidget()->setWeekdayTextFormat(Qt::Sunday,
-                                                         weekendFormat);
 }

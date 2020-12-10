@@ -49,8 +49,7 @@ TEST_CASE_METHOD(UserTableFixture, "Remove all users from users table",
                  "[User Table]")
 {
     users->removeAll();
-    auto all_users = users->getAll();
-    REQUIRE(all_users.size() == 0);
+    REQUIRE(users->size() == 0);
 }
 
 TEST_CASE_METHOD(UserTableFixture, "Add and Remove user from users table",
@@ -60,17 +59,16 @@ TEST_CASE_METHOD(UserTableFixture, "Add and Remove user from users table",
     auto all_users = users->getAll();
     REQUIRE(id >= 0);
     REQUIRE(all_users.size() == 1);
+    REQUIRE(users->size() == 1);
 
     users->remove(id);
-    all_users = users->getAll();
-    REQUIRE(all_users.size() == 0);
+    REQUIRE(users->size() == 0);
 }
 
 TEST_CASE_METHOD(UserTableFixture, "Remove non-existent user from users table",
                  "[User Table]")
 {
-    auto all_users = users->getAll();
-    REQUIRE(all_users.size() == 0);
+    REQUIRE(users->size() == 0);
 
     int id = 1;
     REQUIRE_NOTHROW(users->remove(id));
@@ -79,8 +77,7 @@ TEST_CASE_METHOD(UserTableFixture, "Remove non-existent user from users table",
 TEST_CASE_METHOD(UserTableFixture,"Get non-existent user returns nullptr",
                  "[User Table]")
 {
-    auto all_users = users->getAll();
-    REQUIRE(all_users.size() == 0);
+    REQUIRE(users->size() == 0);
 
     int id = 1;
     REQUIRE(users->get(id) == nullptr);
