@@ -8,6 +8,7 @@
 #include "db/database.h"
 #include "db/user_table.h"
 #include "db/transaction_table.h"
+#include "db/category_table.h"
 #include "transactions_window.h"
 
 namespace Ui {
@@ -35,10 +36,10 @@ private slots:
 
 private:
     Ui::NewTransactionDialog *ui;
-    Database *db;
     TransactionsWindow* w;
     std::unique_ptr<UserTable> users;
     std::unique_ptr<TransactionTable> transactions;
+    std::unique_ptr<CategoryTable> categories;
 
     /** User Name.
      *

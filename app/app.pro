@@ -7,12 +7,14 @@ CONFIG += staticlib
 CONFIG += c++14
 
 SOURCES += \
+    db/category_table.cpp \
     db/db_manager.cpp \
     db/transaction_table.cpp \
     db/user_table.cpp \
     transactions_model.cpp
 
 HEADERS += \
+    db/category_table.h \
     db/database.h \
     db/db_manager.h \
     db/table.h \

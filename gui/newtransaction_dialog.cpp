@@ -16,10 +16,10 @@
 NewTransactionDialog::NewTransactionDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::NewTransactionDialog),
-    db(DBManager::getDatabase()),
     w(nullptr),
-    users(std::make_unique<UserTable>(db)),
-    transactions(std::make_unique<TransactionTable>(db)),
+    users(std::make_unique<UserTable>(DBManager::getDatabase())),
+    transactions(std::make_unique<TransactionTable>(DBManager::getDatabase())),
+    categories(std::make_unique<CategoryTable>(DBManager::getDatabase())),
     userName("Kuznetsov Konstantin")
 {
     ui->setupUi(this);
@@ -123,8 +123,8 @@ int NewTransactionDialog::getDateInSeconds() const
 
 void NewTransactionDialog::addCategoriesToUI() const
 {
-    auto categories = db->get_all<Category>();
-    for (const auto& cat : categories) {
+    auto cat_names = categories->getAll();
+    for (const auto& cat : cat_names) {
         ui->comboBox->addItem(QString::fromUtf8(cat.cat_name.c_str()));
     }
 }
@@ -132,12 +132,11 @@ void NewTransactionDialog::addCategoriesToUI() const
 int NewTransactionDialog::getSelectedCategoryId() const
 {
     auto cat_name = ui->comboBox->currentText().toStdString();
-    auto categories = db->get_all<Category>(where(c(&Category::cat_name)
-                                                  == cat_name));
+    auto id = categories->getIdFromName(cat_name);
 
-    if (categories.empty()) {
+    if (id == categories->invalidID) {
         throw::std::runtime_error("Category not found in database!");
     }
 
-    return categories.begin()->id;
+    return id;
 }
