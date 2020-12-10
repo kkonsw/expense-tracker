@@ -11,6 +11,8 @@ public:
     UserTable() = delete;
     UserTable(Database* database);
     ~UserTable();
+
+    int getIdFromName(const std::string& name) const;
 };
 
 #endif // USER_H

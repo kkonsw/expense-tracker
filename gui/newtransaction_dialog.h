@@ -6,6 +6,8 @@
 #include <vector>
 
 #include "db/database.h"
+#include "db/user_table.h"
+#include "db/transaction_table.h"
 #include "transactions_window.h"
 
 namespace Ui {
@@ -35,11 +37,8 @@ private:
     Ui::NewTransactionDialog *ui;
     Database *db;
     TransactionsWindow* w;
-
-    /** User Id for new Transactions.
-     *
-     */
-    int userId = 0;
+    std::unique_ptr<UserTable> users;
+    std::unique_ptr<TransactionTable> transactions;
 
     /** User Name.
      *
@@ -61,7 +60,7 @@ private:
      */
     bool checkTransactionAmount(QString& amount) const;
 
-    /** Returns date in seconds for Database.
+    /** Returns date in seconds.
      *
      */
     int getDateInSeconds() const;

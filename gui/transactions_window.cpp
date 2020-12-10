@@ -57,10 +57,13 @@ void TransactionsWindow::updateExpenseLabels()
 {
     auto query = db->prepare(select(&Transaction::amount));
     auto expenses = db->execute(query);
-    auto total =  std::accumulate(expenses.begin(), expenses.end(), 0.0);
-    auto max = *std::max_element(expenses.begin(), expenses.end());
-    ui->label_totalExpensesVal->setText(QString::number(total, 'f', 2));
-    ui->label_biggestExpenseVal->setText(QString::number(max, 'f', 2));
+    if (!expenses.empty())
+    {
+        auto total =  std::accumulate(expenses.begin(), expenses.end(), 0.0);
+        auto max = *std::max_element(expenses.begin(), expenses.end());
+        ui->label_totalExpensesVal->setText(QString::number(total, 'f', 2));
+        ui->label_biggestExpenseVal->setText(QString::number(max, 'f', 2));
+    }
 }
 
 void TransactionsWindow::clearTransactions()

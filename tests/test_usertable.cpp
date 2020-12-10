@@ -92,3 +92,18 @@ TEST_CASE_METHOD(UserTableFixture, "Get existing user", "[User Table]")
     REQUIRE(user_ptr->name == "John Doe");
 }
 
+TEST_CASE_METHOD(UserTableFixture, "Get existing user ID from name",
+                 "[User Table]")
+{
+    auto id = users->add(user);
+    auto idFromName = users->getIdFromName(user.name);
+    REQUIRE(id == idFromName);
+}
+
+TEST_CASE_METHOD(UserTableFixture, "Get non-existing user ID from name returns invalid ID",
+                 "[User Table]")
+{
+    auto idFromName = users->getIdFromName(user.name);
+    REQUIRE(idFromName == users->invalidID);
+}
+

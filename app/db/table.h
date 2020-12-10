@@ -41,9 +41,17 @@ public:
      */
     virtual std::size_t size() const;
 
+    /** Id for non-existent record.
+     *
+     */
+    static const int invalidID = -1;
+
 protected:
     Database* db;
 };
+
+template <typename T>
+const int Table<T>::invalidID;
 
 template <typename T>
 Table<T>::Table(Database *database):

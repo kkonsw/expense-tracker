@@ -18,14 +18,10 @@ NewTransactionDialog::NewTransactionDialog(QWidget *parent) :
     ui(new Ui::NewTransactionDialog),
     db(DBManager::getDatabase()),
     w(nullptr),
+    users(std::make_unique<UserTable>(db)),
+    transactions(std::make_unique<TransactionTable>(db)),
     userName("Kuznetsov Konstantin")
 {
-    if (db == nullptr)
-    {
-        throw std::runtime_error("Database is not initialized!");
-    }
-    userId = getUserIdFromDatabase();
-
     ui->setupUi(this);
     this->setFixedSize(300, 350);
     this->setWindowTitle("New Transaction");
@@ -66,18 +62,18 @@ void NewTransactionDialog::addTransaction()
     Transaction transaction;
     if (createNewTransaction(transaction))
     {
-        db->insert<Transaction>(transaction);
+        transactions->add(transaction);
     }
 }
 
 int NewTransactionDialog::getUserIdFromDatabase()
 {
-    auto users = db->get_all<User>(where(c(&User::name) == userName));
-    if (users.empty()) {
+    auto id = users->getIdFromName(userName);
+    if (id == users->invalidID) {
         throw::std::runtime_error("User not found in database!");
     }
 
-    return users.begin()->id;
+    return id;
 }
 
 bool NewTransactionDialog::createNewTransaction(Transaction &transaction)
@@ -94,7 +90,7 @@ bool NewTransactionDialog::createNewTransaction(Transaction &transaction)
         return false;
     }
 
-    transaction.user_id = std::make_unique<int>(userId);
+    transaction.user_id = std::make_unique<int>(getUserIdFromDatabase());
     transaction.date = getDateInSeconds();
     transaction.amount = amount.toDouble();
     transaction.cat_id = std::make_unique<int>(getSelectedCategoryId());
