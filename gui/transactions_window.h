@@ -6,6 +6,8 @@
 
 #include "transactions_model.h"
 #include "db/database.h"
+#include "db/transaction_table.h"
+#include "db/category_table.h"
 
 namespace Ui {
 class TransactionsWindow;
@@ -27,7 +29,8 @@ public:
 private:
     Ui::TransactionsWindow *ui;
     std::unique_ptr<TransactionsModel> model;
-    Database *db;
+    std::unique_ptr<TransactionTable> transactions;
+    std::unique_ptr<CategoryTable> categories;
 
     void updateExpenseLabels();
 

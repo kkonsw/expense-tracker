@@ -5,19 +5,14 @@
 #include "style.h"
 
 #include <QDebug>
-#include <algorithm>
 
 TransactionsWindow::TransactionsWindow(QSqlDatabase db, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::TransactionsWindow),
     model(new TransactionsModel(db)),
-    db(DBManager::getDatabase())
+    transactions(std::make_unique<TransactionTable>(DBManager::getDatabase())),
+    categories(std::make_unique<CategoryTable>(DBManager::getDatabase()))
 {
-    if (this->db == nullptr)
-    {
-        throw std::runtime_error("Database is not initialized!");
-    }
-
     ui->setupUi(this);
     this->setWindowTitle("All Transactions");
     this->setFixedSize(600, 600);
@@ -55,21 +50,16 @@ void TransactionsWindow::update()
 
 void TransactionsWindow::updateExpenseLabels()
 {
-    auto query = db->prepare(select(&Transaction::amount));
-    auto expenses = db->execute(query);
-    if (!expenses.empty())
-    {
-        auto total =  std::accumulate(expenses.begin(), expenses.end(), 0.0);
-        auto max = *std::max_element(expenses.begin(), expenses.end());
-        ui->label_totalExpensesVal->setText(QString::number(total, 'f', 2));
-        ui->label_biggestExpenseVal->setText(QString::number(max, 'f', 2));
-    }
+    auto total =  transactions->getTotalAmount();
+    auto max = transactions->getMaxAmount();
+    ui->label_totalExpensesVal->setText(QString::number(total, 'f', 2));
+    ui->label_biggestExpenseVal->setText(QString::number(max, 'f', 2));
 }
 
 void TransactionsWindow::clearTransactions()
 {
+    transactions->removeAll();
     MessageDialog::information(this, "All Transactions were removed!");
-    db->remove_all<Transaction>();
     update();
 }
 
@@ -80,8 +70,8 @@ void TransactionsWindow::applyFilters()
 
 void TransactionsWindow::addCategoriesToUI()
 {
-    auto categories = db->get_all<Category>();
-    for (const auto& cat : categories) {
+    auto cat_names = categories->getAll();
+    for (const auto& cat : cat_names) {
         ui->comboBox_category->addItem(QString::fromUtf8(cat.cat_name.c_str()));
     }
 }

@@ -57,3 +57,43 @@ TEST_CASE_METHOD(TransactionTableFixture, "Get table size",
     transactions->add(transaction);
     REQUIRE(transactions->size() == 3);
 }
+
+TEST_CASE_METHOD(TransactionTableFixture, "Get total amount",
+                 "[Transaction Table]")
+{
+    int num = 3;
+    for (auto i = 0; i < num; ++i)
+    {
+        transactions->add(transaction);
+    }
+    double total = transaction.amount * num;
+    REQUIRE(total == Approx(transactions->getTotalAmount()));
+}
+
+TEST_CASE_METHOD(TransactionTableFixture, "Initial total amount is 0.0",
+                 "[Transaction Table]")
+{
+    double total = 0.0;
+    REQUIRE(total == Approx(transactions->getTotalAmount()));
+}
+
+TEST_CASE_METHOD(TransactionTableFixture, "Get max amount",
+                 "[Transaction Table]")
+{
+    int num = 3;
+    double amount = transaction.amount;
+    for (auto i = 1; i <= num; ++i)
+    {
+        transaction.amount = amount * i;
+        transactions->add(transaction);
+    }
+    double max = amount * num;
+    REQUIRE(max == Approx(transactions->getMaxAmount()));
+}
+
+TEST_CASE_METHOD(TransactionTableFixture, "Initial max amount is 0.0",
+                 "[Transaction Table]")
+{
+    double max = 0.0;
+    REQUIRE(max == Approx(transactions->getMaxAmount()));
+}
