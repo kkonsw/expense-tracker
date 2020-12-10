@@ -44,7 +44,12 @@ private slots:
     /** Removes all Transactions from Database.
      *
      */
-    void clearTransactions();
+    void removeTransactions();
+
+    /** Removes selected Transactions from Database.
+     *
+     */
+    void removeSelectedTransactions();
 
     /** Show Transactions with current filters.
      *

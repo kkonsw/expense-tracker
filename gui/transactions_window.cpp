@@ -15,7 +15,7 @@ TransactionsWindow::TransactionsWindow(QSqlDatabase db, QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("All Transactions");
-    this->setFixedSize(600, 600);
+    this->setFixedSize(600, 800);
 
     // set up table
     ui->tableView->setModel(model.get());
@@ -32,9 +32,11 @@ TransactionsWindow::TransactionsWindow(QSqlDatabase db, QWidget *parent) :
     ui->dateEdit_end->setDate(QDate::currentDate());
 
     connect(ui->button_clearTransactions, SIGNAL(clicked()), this,
-            SLOT(clearTransactions()));
+            SLOT(removeTransactions()));
     connect(ui->button_applyFilters, SIGNAL(clicked()), this,
             SLOT(applyFilters()));
+    connect(ui->button_removeSelected, SIGNAL(clicked()), this,
+            SLOT(removeSelectedTransactions()));
 }
 
 TransactionsWindow::~TransactionsWindow()
@@ -56,10 +58,21 @@ void TransactionsWindow::updateExpenseLabels()
     ui->label_biggestExpenseVal->setText(QString::number(max, 'f', 2));
 }
 
-void TransactionsWindow::clearTransactions()
+void TransactionsWindow::removeTransactions()
 {
     transactions->removeAll();
     MessageDialog::information(this, "All Transactions were removed!");
+    update();
+}
+
+void TransactionsWindow::removeSelectedTransactions()
+{
+    auto selection = ui->tableView->selectionModel();
+    auto selected = selection->selectedRows();
+    for (const auto& index : selected) {
+        model->removeRow(index.row());
+    }
+    model->submitAll();
     update();
 }
 
