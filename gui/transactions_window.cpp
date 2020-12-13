@@ -78,7 +78,11 @@ void TransactionsWindow::removeSelectedTransactions()
 
 void TransactionsWindow::applyFilters()
 {
-    setCategoryFilter();
+    auto category = getCategoryFilter();
+    auto dates = getDatesFilter();
+    auto filter = QString("%1 AND %2").arg(category).arg(dates);
+    qDebug() << "Filter Query :" << filter;
+    model->setFilter(filter);
     update();
 }
 
@@ -90,16 +94,29 @@ void TransactionsWindow::addCategoriesToUI()
     }
 }
 
-void TransactionsWindow::setCategoryFilter()
+QString TransactionsWindow::getCategoryFilter() const
 {
+    QString filter;
     QString cat_name = ui->comboBox_category->currentText();
     if (cat_name == "All Categories") {
-        model->setFilter("");
-        return;
+        filter = "cat_id > 0";
+        return filter;
     }
     auto cat_id = categories->getIdFromName(cat_name.toStdString());
-    QString filter = QString("cat_id='%1'").arg(QString::number(cat_id));
-    model->setFilter(filter);
+    filter = QString("cat_id = %1").arg(QString::number(cat_id));
+    return filter;
+}
+
+QString TransactionsWindow::getDatesFilter() const
+{
+    QString filter;
+    auto start = ui->dateEdit_start->date();
+    auto start_secs = start.startOfDay().toSecsSinceEpoch();
+    auto end = ui->dateEdit_end->date();
+    auto end_secs = end.endOfDay().toSecsSinceEpoch();
+
+    filter = QString("date BETWEEN %1 AND %2").arg(start_secs).arg(end_secs);
+    return filter;
 }
 
 double TransactionsWindow::getTotalExpenses() const

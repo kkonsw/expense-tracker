@@ -39,10 +39,15 @@ private:
      */
     void addCategoriesToUI();
 
-    /** Sets model filter from selected category.
+    /** Returns model filter for selected category.
      *
      */
-    void setCategoryFilter();
+    QString getCategoryFilter() const;
+
+    /** Returns model filter for selected dates.
+     *
+     */
+    QString getDatesFilter() const;
 
     /** Returns total expenses from model with current filters.
      *

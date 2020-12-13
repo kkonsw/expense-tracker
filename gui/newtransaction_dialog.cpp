@@ -117,7 +117,7 @@ bool NewTransactionDialog::checkTransactionAmount(QString &amount) const
 int NewTransactionDialog::getDateInSeconds() const
 {
     auto date = ui->dateEdit->date();
-    int seconds = QDate(date).startOfDay().toSecsSinceEpoch();
+    int seconds = date.startOfDay().toSecsSinceEpoch();
     return seconds;
 }
 
