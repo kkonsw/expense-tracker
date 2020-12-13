@@ -53,6 +53,8 @@ QVariant TransactionsModel::headerData(int section,
         case 4:
             return QString("Category");
         case 5:
+            return QString("Subcategory");
+        case 6:
             return QString("Note");
         }
     }

@@ -6,22 +6,21 @@
 #include <QApplication>
 #include <QDateTime>
 #include <vector>
+#include <string>
 #include <unordered_map>
 
-void CreateUsers(Database *db)
+void AddUsers(Database *db)
 {
     db->insert<User>({-1, "Kuznetsov Konstantin"});
 }
 
 void AddCategories(Database *db)
 {
-    db->insert<Category>({-1, "Bills"});
-    db->insert<Category>({-1, "Food"});
-    db->insert<Category>({-1, "Leisure"});
-    db->insert<Category>({-1, "Homeneeds"});
-    db->insert<Category>({-1, "Transport"});
-    db->insert<Category>({-1, "Healthcare"});
-    db->insert<Category>({-1, "Miscellaneous"});
+    std::vector<std::string> categories = {"Bills", "Food", "Leisure", "Homeneeds",
+                                           "Transport", "Healthcare", "Miscellaneous"};
+    for (const auto& cat : categories) {
+        db->insert<Category>({-1, cat});
+    }
 }
 
 void AddSubcategories(Database *db)

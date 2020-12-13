@@ -11,7 +11,7 @@ public:
     TransactionTableFixture():
         db(DBManager::getDatabase()),
         transactions(std::make_unique<TransactionTable>(TransactionTable(db))),
-        transaction({-1, nullptr, 664416000, 1.11, nullptr, "test"}),
+        transaction({-1, nullptr, 664416000, 1.11, nullptr, nullptr, "test"}),
         user({-1, "John Doe"})
     {
         // clear database

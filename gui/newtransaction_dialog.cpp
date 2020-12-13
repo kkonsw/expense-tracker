@@ -94,6 +94,7 @@ bool NewTransactionDialog::createNewTransaction(Transaction &transaction)
     transaction.date = getDateInSeconds();
     transaction.amount = amount.toDouble();
     transaction.cat_id = std::make_unique<int>(getSelectedCategoryId());
+    transaction.subcat_id = nullptr;
     transaction.note = ui->lineEdit_note->text().toStdString();
 
     return true;

@@ -15,14 +15,13 @@ TransactionsWindow::TransactionsWindow(QSqlDatabase db, QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("All Transactions");
-    this->setFixedSize(600, 800);
+    this->setFixedSize(900, 800);
 
     // set up table
     ui->tableView->setModel(model.get());
     ui->tableView->horizontalHeader()->setSectionResizeMode(
                 QHeaderView::Stretch);
     ui->tableView->hideColumn(0);
-    ui->tableView->hideColumn(5);
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableView->setSortingEnabled(true);
 
@@ -81,7 +80,6 @@ void TransactionsWindow::applyFilters()
     auto category = getCategoryFilter();
     auto dates = getDatesFilter();
     auto filter = QString("%1 AND %2").arg(category).arg(dates);
-    qDebug() << "Filter Query :" << filter;
     model->setFilter(filter);
     update();
 }
