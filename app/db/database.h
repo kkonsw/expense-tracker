@@ -63,7 +63,13 @@ inline auto init_storage(const std::string &path = "db.sqlite")
                         make_table("categories",
                                    make_column("id", &Category::id,
                                                autoincrement(), primary_key()),
-                                   make_column("cat_name", &Category::cat_name)));
+                                   make_column("cat_name", &Category::cat_name)),
+                        make_table("subcategories",
+                                   make_column("id", &SubCategory::id,
+                                               autoincrement(), primary_key()),
+                                   make_column("cat_id", &SubCategory::cat_id),
+                                   make_column("subcat_name", &SubCategory::subcat_name),
+                                   foreign_key(&SubCategory::cat_id).references(&Category::id)));
 }
 
 using Database = decltype(init_storage());

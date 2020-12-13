@@ -84,7 +84,7 @@ bool NewTransactionDialog::createNewTransaction(Transaction &transaction)
         MessageDialog::information(this, "Incorrect amount!");
         return false;
     }
-    if (ui->comboBox->currentIndex() == 0)
+    if (ui->comboBox_category->currentIndex() == 0)
     {
         MessageDialog::information(this, "Select category!");
         return false;
@@ -125,13 +125,13 @@ void NewTransactionDialog::addCategoriesToUI() const
 {
     auto cat_names = categories->getAll();
     for (const auto& cat : cat_names) {
-        ui->comboBox->addItem(QString::fromUtf8(cat.cat_name.c_str()));
+        ui->comboBox_category->addItem(QString::fromUtf8(cat.cat_name.c_str()));
     }
 }
 
 int NewTransactionDialog::getSelectedCategoryId() const
 {
-    auto cat_name = ui->comboBox->currentText().toStdString();
+    auto cat_name = ui->comboBox_category->currentText().toStdString();
     auto id = categories->getIdFromName(cat_name);
 
     if (id == categories->invalidID) {
