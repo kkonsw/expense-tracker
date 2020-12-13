@@ -15,7 +15,7 @@ void Style::changeQDateEditStyleSheet(QDateEdit *dateEdit)
                           "QDateEdit"
                           "{"
                           "color: white;"
-                          "selection-background-color: white;"
+                          "selection-background-color: grey;"
                           "}"
                           "QDateEdit QAbstractItemView::disabled"
                           "{"

@@ -19,6 +19,15 @@ struct Transaction
     std::string note;
 };
 
+enum class TransactionHeaders {
+        Id,
+        Person,
+        Date,
+        Amount,
+        Category,
+        Note
+};
+
 struct Category
 {
     int id;

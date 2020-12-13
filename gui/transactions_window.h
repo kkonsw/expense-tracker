@@ -44,6 +44,16 @@ private:
      */
     void setCategoryFilter();
 
+    /** Returns total expenses from model with current filters.
+     *
+     */
+    double getTotalExpenses() const;
+
+    /** Returns max expense from model with current filters.
+     *
+     */
+    double getMaxExpense() const;
+
 private slots:
 
     /** Removes all Transactions from Database.

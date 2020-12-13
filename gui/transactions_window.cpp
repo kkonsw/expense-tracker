@@ -52,8 +52,8 @@ void TransactionsWindow::update()
 
 void TransactionsWindow::updateExpenseLabels()
 {
-    auto total =  transactions->getTotalAmount();
-    auto max = transactions->getMaxAmount();
+    auto max = getMaxExpense();
+    auto total = getTotalExpenses();
     ui->label_totalExpensesVal->setText(QString::number(total, 'f', 2));
     ui->label_biggestExpenseVal->setText(QString::number(max, 'f', 2));
 }
@@ -100,4 +100,29 @@ void TransactionsWindow::setCategoryFilter()
     auto cat_id = categories->getIdFromName(cat_name.toStdString());
     QString filter = QString("cat_id='%1'").arg(QString::number(cat_id));
     model->setFilter(filter);
+}
+
+double TransactionsWindow::getTotalExpenses() const
+{
+    double total = 0.0;
+    auto column = TransactionHeaders::Amount;
+    for (int row = 0; row < model->rowCount(); ++row) {
+        auto index = model->index(row, static_cast<int>(column));
+        total += model->data(index).toDouble();
+    }
+    return total;
+}
+
+double TransactionsWindow::getMaxExpense() const
+{
+    double max = 0.0;
+    auto column = TransactionHeaders::Amount;
+    for (int row = 0; row < model->rowCount(); ++row) {
+        auto index = model->index(row, static_cast<int>(column));
+        double expense = model->data(index).toDouble();
+        if (expense > max) {
+            max = expense;
+        }
+    }
+    return max;
 }
