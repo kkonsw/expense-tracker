@@ -20,6 +20,7 @@ NewTransactionDialog::NewTransactionDialog(QWidget *parent) :
     users(std::make_unique<UserTable>(DBManager::getDatabase())),
     transactions(std::make_unique<TransactionTable>(DBManager::getDatabase())),
     categories(std::make_unique<CategoryTable>(DBManager::getDatabase())),
+    subcategories(std::make_unique<SubcategoryTable>(DBManager::getDatabase())),
     userName("Kuznetsov Konstantin")
 {
     ui->setupUi(this);
@@ -71,12 +72,14 @@ void NewTransactionDialog::addTransaction()
 void NewTransactionDialog::updateSubcategories(const QString& category)
 {
     ui->comboBox_subcategory->clear();
-    ui->comboBox_subcategory->addItem("Select subcategory");
+    ui->comboBox_subcategory->addItem("Select Subcategory");
 
-//    auto cat_names = categories->getAll();
-//    for (const auto& cat : cat_names) {
-//        ui->comboBox_category->addItem(QString::fromUtf8(cat.cat_name.c_str()));
-//    }
+    auto cat_names = subcategories->getSubcategoriesFromCategory(
+                category.toStdString());
+    for (const auto& cat : cat_names) {
+        ui->comboBox_subcategory->addItem(QString::fromUtf8(
+                                              cat.subcat_name.c_str()));
+    }
 }
 
 int NewTransactionDialog::getUserIdFromDatabase()

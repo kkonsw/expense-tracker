@@ -5,15 +5,14 @@
 #include <string>
 #include <unordered_map>
 
+
 void AddUsers(Database *db)
 {
-    db->remove_all<User>();
     db->insert<User>({-1, "Kuznetsov Konstantin"});
 }
 
 void AddCategories(Database *db)
 {
-    db->remove_all<Category>();
     std::vector<std::string> categories = {"Bills", "Food", "Leisure", "Homeneeds",
                                            "Transport", "Healthcare", "Miscellaneous"};
     for (const auto& cat : categories) {
@@ -23,9 +22,8 @@ void AddCategories(Database *db)
 
 void AddSubcategories(Database *db)
 {
-    db->remove_all<Subcategory>();
-
     using SubcatNames = std::vector<std::string>;
+
     SubcatNames bills = {"Phone", "Electricity", "Internet", "Apartment", "Water", "Other"};
     SubcatNames food = {"Groceries", "Other"};
     SubcatNames leisure = {"Dining Out", "Movies", "Other"};

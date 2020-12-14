@@ -9,6 +9,7 @@
 #include "db/user_table.h"
 #include "db/transaction_table.h"
 #include "db/category_table.h"
+#include "db/subcategory_table.h"
 #include "transactions_window.h"
 
 namespace Ui {
@@ -45,6 +46,7 @@ private:
     std::unique_ptr<UserTable> users;
     std::unique_ptr<TransactionTable> transactions;
     std::unique_ptr<CategoryTable> categories;
+    std::unique_ptr<SubcategoryTable> subcategories;
 
     /** User Name.
      *
