@@ -9,6 +9,7 @@ TransactionsModel::TransactionsModel(QSqlDatabase db):
     setTable("transactions");
     setRelation(1, QSqlRelation("users", "id", "name"));
     setRelation(4, QSqlRelation("categories", "id", "cat_name"));
+    setRelation(5, QSqlRelation("subcategories", "id", "subcat_name"));
     select();
 }
 
@@ -19,7 +20,6 @@ TransactionsModel::~TransactionsModel()
 
 QVariant TransactionsModel::data(const QModelIndex &index, int role) const
 {
-
     if (role == Qt::TextAlignmentRole) {
          return Qt::AlignCenter;
     }

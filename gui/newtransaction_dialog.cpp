@@ -110,7 +110,7 @@ bool NewTransactionDialog::createNewTransaction(Transaction &transaction)
     transaction.date = getDateInSeconds();
     transaction.amount = amount.toDouble();
     transaction.cat_id = std::make_unique<int>(getSelectedCategoryId());
-    transaction.subcat_id = nullptr;
+    transaction.subcat_id = std::make_unique<int>(getSelectedSubcaregoryId());
     transaction.note = ui->lineEdit_note->text().toStdString();
 
     return true;
@@ -155,5 +155,21 @@ int NewTransactionDialog::getSelectedCategoryId() const
         throw::std::runtime_error("Category not found in database!");
     }
 
+    return id;
+}
+
+int NewTransactionDialog::getSelectedSubcaregoryId() const
+{
+    auto cat_id = getSelectedCategoryId();
+    auto name = ui->comboBox_subcategory->currentText().toStdString();
+    auto id = subcategories->getId(name, cat_id);
+    if (id == subcategories->invalidID) {
+        // Setting NULL for the foreign key does not allow the record to be shown in the QTableView,
+        // so if subcategory is not selected then "Other" subcategory is selected by default.
+        id = subcategories->getId("Other", cat_id);
+        if (id == subcategories->invalidID) {
+            throw std::runtime_error("Subcategory is not valid!");
+        }
+    }
     return id;
 }

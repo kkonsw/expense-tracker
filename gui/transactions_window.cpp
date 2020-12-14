@@ -5,6 +5,7 @@
 #include "style.h"
 
 #include <QDebug>
+#include <QSqlQuery>
 
 TransactionsWindow::TransactionsWindow(QSqlDatabase db, QWidget *parent) :
     QWidget(parent),
@@ -97,11 +98,11 @@ QString TransactionsWindow::getCategoryFilter() const
     QString filter;
     QString cat_name = ui->comboBox_category->currentText();
     if (cat_name == "All Categories") {
-        filter = "cat_id > 0";
+        filter = "transactions.cat_id > 0";
         return filter;
     }
     auto cat_id = categories->getIdFromName(cat_name.toStdString());
-    filter = QString("cat_id = %1").arg(QString::number(cat_id));
+    filter = QString("transactions.cat_id = %1").arg(QString::number(cat_id));
     return filter;
 }
 
@@ -113,7 +114,7 @@ QString TransactionsWindow::getDatesFilter() const
     auto end = ui->dateEdit_end->date();
     auto end_secs = end.endOfDay().toSecsSinceEpoch();
 
-    filter = QString("date BETWEEN %1 AND %2").arg(start_secs).arg(end_secs);
+    filter = QString("transactions.date BETWEEN %1 AND %2").arg(start_secs).arg(end_secs);
     return filter;
 }
 

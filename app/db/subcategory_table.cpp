@@ -24,3 +24,15 @@ std::vector<Subcategory> SubcategoryTable::getSubcategoriesFromCategory(
     }
     return subcategories;
 }
+
+int SubcategoryTable::getId(const std::string &name, int cat_id) const
+{
+    auto subcategories = db->get_all<Subcategory>(where(c(&Subcategory::subcat_name)
+                                                 == name));
+    for (const auto& subcat : subcategories) {
+        if (*subcat.cat_id == cat_id) {
+            return subcat.id;
+        }
+    }
+    return invalidID;
+}

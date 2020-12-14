@@ -82,6 +82,11 @@ private:
      *
      */
     int getSelectedCategoryId() const;
+
+    /** Returns subcategory id from Database.
+     *
+     */
+    int getSelectedSubcaregoryId() const;
 };
 
 #endif // NEWTRANSACTION_DIALOG_H

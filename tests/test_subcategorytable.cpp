@@ -3,6 +3,7 @@
 #include "db/database.h"
 #include "db/subcategory_table.h"
 #include "db/data.h"
+#include "db/category_table.h"
 
 class SubcategoryTableFixture
 {
@@ -39,4 +40,31 @@ TEST_CASE_METHOD(SubcategoryTableFixture,
 {
     auto subcats = subcategories->getSubcategoriesFromCategory("abc");
     REQUIRE(subcats.size() == 0);
+}
+
+TEST_CASE_METHOD(SubcategoryTableFixture,
+                 "Get subcategories id with valid category id",
+                 "[Subcategory Table]")
+{
+    CategoryTable categories(db);
+    auto id = subcategories->getId("Phone", categories.getIdFromName("Bills"));
+    REQUIRE(id > 0);
+}
+
+TEST_CASE_METHOD(SubcategoryTableFixture,
+                 "Get subcategories id with valid category id, but invalid name",
+                 "[Subcategory Table]")
+{
+    CategoryTable categories(db);
+    auto id = subcategories->getId("abc", categories.getIdFromName("Bills"));
+    REQUIRE(id == subcategories->invalidID);
+}
+
+TEST_CASE_METHOD(SubcategoryTableFixture,
+                 "Get subcategories id with invalid category name",
+                 "[Subcategory Table]")
+{
+    CategoryTable categories(db);
+    auto id = subcategories->getId("Other", categories.getIdFromName("abc"));
+    REQUIRE(id == subcategories->invalidID);
 }
