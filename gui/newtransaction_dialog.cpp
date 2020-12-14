@@ -33,6 +33,8 @@ NewTransactionDialog::NewTransactionDialog(QWidget *parent) :
             SLOT(viewAllTransactions()));
     connect(ui->button_addTransaction, SIGNAL(clicked()), this,
             SLOT(addTransaction()));
+    connect(ui->comboBox_category, SIGNAL(currentIndexChanged(const QString&)),
+            this, SLOT(updateSubcategories(const QString&)));
 }
 
 NewTransactionDialog::~NewTransactionDialog()
@@ -64,6 +66,17 @@ void NewTransactionDialog::addTransaction()
     {
         transactions->add(transaction);
     }
+}
+
+void NewTransactionDialog::updateSubcategories(const QString& category)
+{
+    ui->comboBox_subcategory->clear();
+    ui->comboBox_subcategory->addItem("Select subcategory");
+
+//    auto cat_names = categories->getAll();
+//    for (const auto& cat : cat_names) {
+//        ui->comboBox_category->addItem(QString::fromUtf8(cat.cat_name.c_str()));
+//    }
 }
 
 int NewTransactionDialog::getUserIdFromDatabase()

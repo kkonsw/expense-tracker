@@ -36,7 +36,7 @@ struct Category
     std::string cat_name;
 };
 
-struct SubCategory
+struct Subcategory
 {
     int id;
     std::unique_ptr<int> cat_id;
@@ -63,17 +63,17 @@ inline auto init_storage(const std::string &path = "db.sqlite")
                                    make_column("note", &Transaction::note),
                                    foreign_key(&Transaction::user_id).references(&User::id),
                                    foreign_key(&Transaction::cat_id).references(&Category::id),
-                                   foreign_key(&Transaction::subcat_id).references(&SubCategory::id)),
+                                   foreign_key(&Transaction::subcat_id).references(&Subcategory::id)),
                         make_table("categories",
                                    make_column("id", &Category::id,
                                                autoincrement(), primary_key()),
                                    make_column("cat_name", &Category::cat_name)),
                         make_table("subcategories",
-                                   make_column("id", &SubCategory::id,
+                                   make_column("id", &Subcategory::id,
                                                autoincrement(), primary_key()),
-                                   make_column("cat_id", &SubCategory::cat_id),
-                                   make_column("subcat_name", &SubCategory::subcat_name),
-                                   foreign_key(&SubCategory::cat_id).references(&Category::id)));
+                                   make_column("cat_id", &Subcategory::cat_id),
+                                   make_column("subcat_name", &Subcategory::subcat_name),
+                                   foreign_key(&Subcategory::cat_id).references(&Category::id)));
 }
 
 using Database = decltype(init_storage());

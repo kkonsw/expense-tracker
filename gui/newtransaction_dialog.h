@@ -34,6 +34,11 @@ private slots:
      */
     void addTransaction();
 
+    /** Updates subcategories when category changes.
+     *
+     */
+    void updateSubcategories(const QString& category);
+
 private:
     Ui::NewTransactionDialog *ui;
     TransactionsWindow* w;

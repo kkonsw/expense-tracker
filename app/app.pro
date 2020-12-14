@@ -8,15 +8,19 @@ CONFIG += c++14
 
 SOURCES += \
     db/category_table.cpp \
+    db/data.cpp \
     db/db_manager.cpp \
+    db/subcategory_table.cpp \
     db/transaction_table.cpp \
     db/user_table.cpp \
     transactions_model.cpp
 
 HEADERS += \
     db/category_table.h \
+    db/data.h \
     db/database.h \
     db/db_manager.h \
+    db/subcategory_table.h \
     db/table.h \
     db/transaction_table.h \
     db/user_table.h \
