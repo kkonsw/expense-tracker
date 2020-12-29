@@ -30,7 +30,7 @@
 
 # ER-диаграмма
 
-![](ER.png)
+![](screenshots/ER.png)
 
 # Основные функции
 
@@ -96,8 +96,8 @@
 
 ## Добавление новой транзакции
 
-![](screenshots/new-transaction-empty.png){width=50%}
-![](screenshots/new-transaction.png){width=50%}
+![](screenshots/new-transaction-empty.png)
+![](screenshots/new-transaction.png)
 
 ## Просмотр списка транзакций
 
